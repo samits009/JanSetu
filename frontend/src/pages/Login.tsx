@@ -521,12 +521,48 @@ export function Login() {
                 {/* Primary CTA: Log In */}
                 <GlassButton
                   type="submit"
+                  id="login-submit-btn"
                   variant="primary"
                   size="lg"
                   loading={isSubmitting}
                   style={{ marginTop: 4 }}
                 >
                   {language === 'hi' ? 'लॉग इन करें' : 'Log In'}
+                </GlassButton>
+
+                {/* 1-Click Demo Citizen Login */}
+                <GlassButton
+                  type="button"
+                  id="quick-demo-login-btn"
+                  variant="secondary"
+                  size="md"
+                  onClick={async () => {
+                    setIdentifier('demo@jansetu.in');
+                    setPassword('DemoPassword123!');
+                    setIsSubmitting(true);
+                    try {
+                      const profile = await login('demo@jansetu.in', 'DemoPassword123!');
+                      if (!profile.onboarding_completed || profile.requires_mobile) {
+                        navigate('/onboarding', { replace: true });
+                      } else {
+                        navigate('/', { replace: true });
+                      }
+                    } catch (err: any) {
+                      setError(err?.message || (language === 'hi' ? 'लॉगिन विफल रहा।' : 'Login failed.'));
+                    } finally {
+                      setIsSubmitting(false);
+                    }
+                  }}
+                  style={{
+                    marginTop: 10,
+                    width: '100%',
+                    background: 'rgba(245, 199, 124, 0.14)',
+                    borderColor: 'rgba(245, 199, 124, 0.45)',
+                    color: 'var(--gold-primary)',
+                    fontWeight: 600,
+                  }}
+                >
+                  ⚡ {language === 'hi' ? 'डेमो खाता से 1-क्लिक लॉगिन (1-Click Demo Login)' : '1-Click Demo Login (demo@jansetu.in)'}
                 </GlassButton>
 
                 {/* Divider: OR */}
