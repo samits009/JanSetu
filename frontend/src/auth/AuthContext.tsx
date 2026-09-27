@@ -73,12 +73,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (identifier: string, password: string): Promise<UserProfile> => {
     // Authenticate against PostgreSQL backend — supports email or mobile number
-    await apiClient.post('/api/auth/login', {
+    const res = await apiClient.post<any>('/api/auth/login', {
       username: identifier,
       email: identifier,
       mobile_number: identifier,
       password,
     });
+    if (res?.token || res?.session_token) {
+      localStorage.setItem('jansetu_token', res.token || res.session_token);
+    }
     const profile = await fetchCurrentUser();
     if (!profile) {
       throw new Error('Failed to retrieve user session after login.');
@@ -87,10 +90,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (payload: RegisterPayload): Promise<UserProfile> => {
-    await apiClient.post('/api/auth/register', {
+    const res = await apiClient.post<any>('/api/auth/register', {
       ...payload,
       phone: payload.mobile_number || payload.phone,
     });
+    if (res?.token || res?.session_token) {
+      localStorage.setItem('jansetu_token', res.token || res.session_token);
+    }
     const profile = await fetchCurrentUser();
     if (!profile) {
       throw new Error('Failed to retrieve user session after registration.');
@@ -99,11 +105,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const linkGoogle = async (email: string, password: string, pendingSub: string): Promise<UserProfile> => {
-    await apiClient.post('/api/auth/link-google', {
+    const res = await apiClient.post<any>('/api/auth/link-google', {
       email,
       password,
       pending_sub: pendingSub,
     });
+    if (res?.token || res?.session_token) {
+      localStorage.setItem('jansetu_token', res.token || res.session_token);
+    }
     const profile = await fetchCurrentUser();
     if (!profile) {
       throw new Error('Failed to retrieve user session after linking Google account.');
@@ -122,6 +131,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // Ignore network errors on logout
     } finally {
+      localStorage.removeItem('jansetu_token');
       setUser(null);
     }
   };

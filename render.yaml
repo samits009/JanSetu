@@ -31,5 +31,7 @@ services:
         value: false
       - key: DEV_DEMO_AUTH
         value: false
+      - key: CORS_ORIGINS
+        value: https://jansetu-dusky.vercel.app
       - key: PYTHONUNBUFFERED
         value: "1"

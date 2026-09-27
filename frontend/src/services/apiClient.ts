@@ -29,6 +29,12 @@ async function fetchWithTimeout(url: string, options: FetchOptions = {}): Promis
   
   const headers = new Headers(fetchOptions.headers);
   headers.set('X-Request-ID', requestId);
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('jansetu_token');
+    if (token && !headers.has('Authorization')) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+  }
   if (!(fetchOptions.body instanceof FormData) && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
   }

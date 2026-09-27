@@ -26,11 +26,12 @@ SESSION_TTL = timedelta(hours=24)
 
 def set_auth_cookie(response: Response, token: str, is_secure: bool = False) -> None:
     """Sets the secure, HTTP-only authentication session cookie."""
+    samesite_val = "none" if is_secure else "lax"
     response.set_cookie(
         SESSION_COOKIE,
         token,
         httponly=True,
-        samesite="lax",
+        samesite=samesite_val,
         secure=is_secure,
         max_age=int(SESSION_TTL.total_seconds()),
         path="/",

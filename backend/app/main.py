@@ -16,6 +16,7 @@ default_origins = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://jansetu-dusky.vercel.app",
 ]
 
 env_origins = os.environ.get("CORS_ORIGINS", "")
@@ -28,6 +29,7 @@ if env_origins:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=default_origins,
+    allow_origin_regex=r"^https:\/\/.*\.vercel\.app$|^https:\/\/.*\.onrender\.com$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
