@@ -33,4 +33,6 @@ class AuthResponse(BaseModel):
     preferred_language: Optional[str] = "hi"
     onboarding_completed: Optional[bool] = False
     onboarding_step: Optional[int] = 1
+    session_token: Optional[str] = None
+    token: Optional[str] = None
 

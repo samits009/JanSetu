@@ -20,6 +20,7 @@ def response_for(
     phone: str | None = None,
     onboarding_completed: bool = False,
     onboarding_step: int = 1,
+    token: str | None = None,
 ) -> AuthResponse:
     return AuthResponse(
         authenticated=True,
@@ -34,6 +35,8 @@ def response_for(
         preferred_language=principal.preferred_language or "hi",
         onboarding_completed=onboarding_completed,
         onboarding_step=onboarding_step,
+        session_token=token,
+        token=token,
     )
 
 
@@ -68,6 +71,7 @@ async def register(req: RegisterRequest, response: Response, db: AsyncSession = 
         user.phone,
         onboarding_completed=citizen.onboarding_completed if citizen else False,
         onboarding_step=citizen.onboarding_step if citizen else 1,
+        token=token,
     )
 
 
@@ -99,6 +103,7 @@ async def login(req: LoginRequest, response: Response, db: AsyncSession = Depend
         user.phone,
         onboarding_completed=citizen.onboarding_completed if citizen else False,
         onboarding_step=citizen.onboarding_step if citizen else 1,
+        token=token,
     )
 
 
@@ -119,6 +124,7 @@ async def demo_login(response: Response, db: AsyncSession = Depends(get_async_db
         user.phone if user else None,
         onboarding_completed=citizen.onboarding_completed if citizen else False,
         onboarding_step=citizen.onboarding_step if citizen else 1,
+        token=token,
     )
 
 
@@ -130,6 +136,13 @@ async def me(request: Request, principal: IdentityPrincipal = Depends(get_curren
     # This ensures a language change via PUT /me/preferences is immediately visible.
     if user and user.preferred_language:
         principal.preferred_language = user.preferred_language
+    
+    current_token = request.cookies.get(SESSION_COOKIE)
+    if not current_token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            current_token = auth_header[7:].strip()
+
     return response_for(
         principal,
         citizen.name if citizen else None,
@@ -137,6 +150,7 @@ async def me(request: Request, principal: IdentityPrincipal = Depends(get_curren
         user.phone if user else None,
         onboarding_completed=citizen.onboarding_completed if citizen else False,
         onboarding_step=citizen.onboarding_step if citizen else 1,
+        token=current_token,
     )
 
 

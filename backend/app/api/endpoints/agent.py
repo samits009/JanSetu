@@ -93,7 +93,7 @@ async def chat(request: ChatRequest, http_request: Request, db_session: AsyncSes
     ctx = await get_agent_context(effective_citizen_id, db_session)
     
     fallback_provider = DeterministicDomainFallbackProvider()
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("AI_API_KEY")
     if api_key and GEMINI_AVAILABLE:
         try:
             provider = GeminiProvider(api_key=api_key, fallback=fallback_provider)

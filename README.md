@@ -47,45 +47,30 @@ Across India, millions of unorganized, migrant, and construction workers lose ac
 
 ## 🏗️ System Architecture
 
-```mermaid
-graph TD
-    subgraph Frontend ["Frontend (React 19 + TypeScript + Vite)"]
-        UI[JanSetu Glassmorphic UI]
-        GS[Custom GlassSelect System]
-        LANG[Bilingual Context EN / HI]
-        AGENT_UI[Gemini Welfare Drawer]
-    end
-
-    subgraph Backend ["Backend (FastAPI + Async Python 3.14)"]
-        API[FastAPI Gateway]
-        AUTH[Real Session & Cookie Auth]
-        POLICY[Deterministic Policy Rule Engine]
-        DOC_SVC[Document & Storage Service]
-        APP_SVC[Application State Machine]
-        GEMINI_AGENT[Welfare Agent Engine]
-        HANDOFF[Official Portal Handoff Provider]
-    end
-
-    subgraph Storage ["Persistence & Storage Tier"]
-        PG[(PostgreSQL 15)]
-        DOC_STORE[Document Storage Local / S3 / GCS]
-    end
-
-    UI --> API
-    GS --> UI
-    LANG --> UI
-    AGENT_UI --> API
-    API --> AUTH
-    API --> POLICY
-    API --> DOC_SVC
-    API --> APP_SVC
-    API --> GEMINI_AGENT
-    APP_SVC --> HANDOFF
-    AUTH --> PG
-    POLICY --> PG
-    DOC_SVC --> PG
-    DOC_SVC --> DOC_STORE
-    APP_SVC --> PG
+```text
+                         JANSETU (जनसेतु)
+                                │
+                ┌───────────────┴───────────────┐
+                │                               │
+             WEB APP                       MOBILE APP
+       React 19 + TypeScript             Flutter + Dart
+       (Vite + Tailwind CSS)           (Android & iOS)
+                │                               │
+                └───────────────┬───────────────┘
+                                │
+                            HTTPS API
+                                │
+                             FastAPI
+                         (Python 3.14)
+                                │
+                           PostgreSQL
+                                │
+              ┌─────────────────┼─────────────────┐
+              │                 │                 │
+           Documents         Schemes            Gemini
+       (Sovereign Vault) (Statutory Rules) (Agent Assist)
+              │                 │                 │
+              └─────────────────┴─────────────────┘
 ```
 
 ---
@@ -94,14 +79,15 @@ graph TD
 
 | Component | Technology | Description |
 |---|---|---|
-| **Frontend Framework** | React 19, TypeScript, Vite | Ultra-fast client-side reactive architecture |
-| **Styling & Design** | Vanilla Glassmorphism CSS | Custom design tokens, Outfit & Noto Sans typography |
+| **Web Frontend** | React 19, TypeScript, Vite | Ultra-fast client-side reactive architecture |
+| **Mobile App (Android/iOS)** | Flutter 3.47, Dart 3.13 | Native cross-platform application with custom glassmorphism |
+| **Styling & Design** | Custom Glass Design System | Custom design tokens, Outfit & Noto Sans typography, Frosted GlassSelect |
 | **Backend Framework** | FastAPI (Python 3.14) | Asynchronous REST API with Pydantic validation |
 | **Database & ORM** | PostgreSQL 15, SQLAlchemy 2.0 (Asyncpg) | Real relational persistence, user isolation, and audit logging |
 | **Database Migrations**| Alembic | Transactional schema migrations |
 | **AI & LLM Provider** | Google Gemini (`google-genai`) | Autonomous agent tool-calling with deterministic fallback |
 | **Object Storage** | `DocumentStorageProvider` | Local storage with AWS S3 & Google Cloud Storage abstraction |
-| **Testing Suite** | Pytest, AnyIO, Asyncpg | 128 comprehensive automated integration and unit tests |
+| **Testing Suite** | Pytest, Asyncpg, Flutter Test | 128 backend tests + 9 mobile Flutter test suites |
 
 ---
 
@@ -111,6 +97,7 @@ graph TD
 - Docker and Docker Compose
 - Node.js (v18+)
 - Python 3.10+ (Python 3.14 supported)
+- Flutter SDK 3.47+ (for Mobile App)
 
 ### 1. Clone the Repository
 ```bash
@@ -150,7 +137,7 @@ python setup_db.py
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 5. Run Frontend
+### 5. Run Web Frontend
 ```bash
 cd ../frontend
 npm install
@@ -158,18 +145,32 @@ npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+### 6. Run Mobile Application (Flutter)
+```bash
+cd ../mobile
+flutter pub get
+flutter run
+```
+To run tests:
+```bash
+flutter test
+```
+To build release APK:
+```bash
+flutter build apk --release
+```
+
 ---
 
 ## 🧪 Testing & Verification
 
-JanSetu features an exhaustive test suite verifying real PostgreSQL persistence, user isolation, document byte round-trips, agent tool execution, and official handoffs.
+JanSetu features an exhaustive test suite verifying real PostgreSQL persistence, user isolation, document byte round-trips, agent tool execution, official handoffs, and native mobile presentation.
 
+### Backend Test Suite (Pytest)
 ```bash
 cd backend
 pytest tests -v
 ```
-
-### Test Suite Results:
 ```text
 ======================= 128 passed, 28 warnings in 133.45s =======================
 ✓ test_phase8a_storage_provider (Local, Path Traversal, S3/Cloud Abstraction, Factory)
@@ -178,6 +179,24 @@ pytest tests -v
 ✓ test_document_persistence_roundtrip (SHA-256 Byte Verification, Download Authorization)
 ✓ test_real_authentication & citizen_isolation (Multi-tenant Security, Session TTL)
 ✓ test_ramesh_agent_end_to_end & test_ramesh_full_welfare_workflow
+```
+
+### Mobile Test Suite (Flutter)
+```bash
+cd mobile
+flutter test
+```
+```text
+00:00 +0: JanSetu Tokens & Theme Tests Colors match web tokens exactly
+00:00 +1: JanSetu Tokens & Theme Tests Dark theme configuration is valid
+00:00 +2: ApiException Mapping Tests Correct mapping for HTTP 401
+00:00 +3: ApiException Mapping Tests Correct mapping for HTTP 422
+00:00 +4: ApiException Mapping Tests Network and timeout error mapping
+00:00 +5: Localization Tests English and Hindi strings have parity
+00:00 +6: Data Model Parsing Tests SchemeBenefitModel correctly parses backend payload
+00:00 +7: Data Model Parsing Tests WelfareStateModel correctly parses metrics
+00:00 +8: GlassCard Widget Test Renders child inside frosted container
+00:00 +9: All tests passed!
 ```
 
 ---
