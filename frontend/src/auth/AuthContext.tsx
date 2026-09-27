@@ -82,6 +82,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (res?.token || res?.session_token) {
       localStorage.setItem('jansetu_token', res.token || res.session_token);
     }
+    if (res && res.authenticated) {
+      if (!res.name && res.citizen_name) {
+        res.name = res.citizen_name;
+      }
+      setUser(res);
+      return res;
+    }
     const profile = await fetchCurrentUser();
     if (!profile) {
       throw new Error('Failed to retrieve user session after login.');
@@ -96,6 +103,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
     if (res?.token || res?.session_token) {
       localStorage.setItem('jansetu_token', res.token || res.session_token);
+    }
+    if (res && res.authenticated) {
+      if (!res.name && res.citizen_name) {
+        res.name = res.citizen_name;
+      }
+      setUser(res);
+      return res;
     }
     const profile = await fetchCurrentUser();
     if (!profile) {
