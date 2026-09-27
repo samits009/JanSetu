@@ -46,7 +46,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const rawBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const BASE_URL = rawBase.replace(/\/+$/, '');
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);

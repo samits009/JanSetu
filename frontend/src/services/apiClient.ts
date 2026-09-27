@@ -12,7 +12,13 @@ export class ApiError extends Error {
   }
 }
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const rawBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const BASE_URL = rawBase.replace(/\/+$/, '');
+
+function formatUrl(path: string): string {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${BASE_URL}${cleanPath}`;
+}
 const DEFAULT_TIMEOUT = 15000; // 15 seconds
 
 interface FetchOptions extends RequestInit {
@@ -82,7 +88,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
 
 export const apiClient = {
   async get<T>(path: string, options?: FetchOptions): Promise<T> {
-    const response = await fetchWithTimeout(`${BASE_URL}${path}`, {
+    const response = await fetchWithTimeout(formatUrl(path), {
       ...options,
       method: 'GET',
     });
@@ -90,7 +96,7 @@ export const apiClient = {
   },
 
   async post<T>(path: string, data?: any, options?: FetchOptions): Promise<T> {
-    const response = await fetchWithTimeout(`${BASE_URL}${path}`, {
+    const response = await fetchWithTimeout(formatUrl(path), {
       ...options,
       method: 'POST',
       body: data ? JSON.stringify(data) : undefined,
@@ -99,7 +105,7 @@ export const apiClient = {
   },
 
   async postFormData<T>(path: string, data: FormData, options?: FetchOptions): Promise<T> {
-    const response = await fetchWithTimeout(`${BASE_URL}${path}`, {
+    const response = await fetchWithTimeout(formatUrl(path), {
       ...options,
       method: 'POST',
       body: data,
@@ -108,7 +114,7 @@ export const apiClient = {
   },
   
   async put<T>(path: string, data?: any, options?: FetchOptions): Promise<T> {
-    const response = await fetchWithTimeout(`${BASE_URL}${path}`, {
+    const response = await fetchWithTimeout(formatUrl(path), {
       ...options,
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,
@@ -117,7 +123,7 @@ export const apiClient = {
   },
   
   async delete<T>(path: string, options?: FetchOptions): Promise<T> {
-    const response = await fetchWithTimeout(`${BASE_URL}${path}`, {
+    const response = await fetchWithTimeout(formatUrl(path), {
       ...options,
       method: 'DELETE',
     });
