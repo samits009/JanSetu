@@ -35,3 +35,6 @@ Thumbs.db
 # Archives & Packages
 *.zip
 *.tar.gz
+
+# GCP deployment secrets
+.env.gcp

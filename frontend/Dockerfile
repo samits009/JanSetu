@@ -9,8 +9,8 @@ RUN npm ci
 COPY . .
 
 # Build argument for backend API URL (defaults to /api or external API domain)
-ARG VITE_API_URL=""
-ENV VITE_API_URL=${VITE_API_URL}
+ARG VITE_API_BASE_URL=""
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 RUN npm run build
 
