@@ -31,3 +31,7 @@ frontend/.env.local
 .idea/
 .DS_Store
 Thumbs.db
+
+# Archives & Packages
+*.zip
+*.tar.gz
