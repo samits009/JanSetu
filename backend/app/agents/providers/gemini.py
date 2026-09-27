@@ -38,7 +38,7 @@ class GeminiProvider(AIProvider):
         fallback: Optional[AIProvider] = None,
     ):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY") or os.environ.get("AI_API_KEY")
-        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
         self.max_retries = max_retries
         self.timeout_seconds = timeout_seconds
         self.fallback = fallback
@@ -108,7 +108,8 @@ class GeminiProvider(AIProvider):
         system_instruction = (
             "You are JanSetu Assistant, a sovereign welfare navigator for Indian citizens. "
             "You MUST call provided domain tools to look up profiles, verify documents, "
-            "evaluate welfare rules, and prepare applications. "
+            "search schemes, evaluate welfare rules, check scholarship eligibility, and prepare applications. "
+            "When a citizen asks for scholarships or student schemes, first call `search_schemes` with category='EDUCATION' or prompt for their educational criteria (class/course, family annual income, social category, gender), and then call `check_scholarship_eligibility`. "
             "Never invent details, benefits, or policies. "
             "Authoritative eligibility decisions come exclusively from the deterministic Policy Engine."
         )
@@ -151,7 +152,14 @@ class GeminiProvider(AIProvider):
 
             except Exception as e:
                 last_error = e
+                err_str = str(e).lower()
                 logger.warning(f"Gemini API attempt {attempt + 1} failed: {e}")
+                # If resource exhausted (quota / rate limit / 429), immediately fall back
+                if "resource_exhausted" in err_str or "429" in err_str or "quota" in err_str:
+                    logger.warning(f"Gemini quota exhausted on model {self.model_name}. Engaging JanSetu domain fallback.")
+                    if self.fallback:
+                        return await self.fallback.generate_response(prompt, context, tools)
+                    break
                 if attempt < self.max_retries:
                     await asyncio.sleep(0.5 * (2 ** attempt))
 

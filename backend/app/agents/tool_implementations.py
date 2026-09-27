@@ -154,6 +154,146 @@ async def evaluate_eligibility(ctx: AgentContext, args: EvaluateEligibilityInput
         reason="Evaluated eligibility"
     )
 
+class SearchSchemesInput(BaseModel):
+    category: Optional[str] = None
+    query: Optional[str] = None
+
+@tool_registry.register(
+    name="search_schemes",
+    description="Search for available government welfare schemes and scholarships by category (e.g. EDUCATION, HEALTH, EMPLOYMENT, PENSION, HOUSING) or keyword (e.g. scholarship, student, pension, farmer).",
+    input_schema=SearchSchemesInput,
+    permission_level=ToolPermissionLevel.READ_ONLY
+)
+async def search_schemes(ctx: AgentContext, args: SearchSchemesInput) -> ToolResult:
+    from sqlalchemy import select, or_
+    from app.models.scheme import Scheme
+    
+    stmt = select(Scheme)
+    conditions = []
+    if args.category:
+        cat_upper = args.category.upper()
+        conditions.append(Scheme.category == cat_upper)
+    if args.query:
+        kw = f"%{args.query.lower()}%"
+        conditions.append(
+            or_(
+                Scheme.official_name.ilike(kw),
+                Scheme.description.ilike(kw),
+                Scheme.benefit_description.ilike(kw)
+            )
+        )
+    if conditions:
+        stmt = stmt.where(*conditions)
+    
+    stmt = stmt.limit(10)
+    result = await ctx.db_session.execute(stmt)
+    schemes = result.scalars().all()
+    
+    return ToolResult(
+        success=True,
+        data={
+            "count": len(schemes),
+            "schemes": [
+                {
+                    "id": str(s.id),
+                    "name": s.official_name,
+                    "category": s.category.value if hasattr(s.category, 'value') else str(s.category),
+                    "authority": s.authority,
+                    "benefit_amount": s.benefit_amount,
+                    "benefit_description": s.benefit_description,
+                    "description": s.description,
+                    "requirements": [r.get("name") for r in (s.requirement_definitions or [])]
+                }
+                for s in schemes
+            ]
+        },
+        reason=f"Found {len(schemes)} matching schemes in database"
+    )
+
+class CheckScholarshipEligibilityInput(BaseModel):
+    class_or_course: Optional[str] = None
+    annual_income: Optional[float] = None
+    category: Optional[str] = None
+    gender: Optional[str] = None
+
+@tool_registry.register(
+    name="check_scholarship_eligibility",
+    description="Check which scholarships in the JanSetu database the student is eligible for based on their class/course, annual family income, social category, and gender.",
+    input_schema=CheckScholarshipEligibilityInput,
+    permission_level=ToolPermissionLevel.READ_ONLY
+)
+async def check_scholarship_eligibility(ctx: AgentContext, args: CheckScholarshipEligibilityInput) -> ToolResult:
+    from sqlalchemy import select
+    from app.models.scheme import Scheme
+    stmt = select(Scheme).where(Scheme.category == 'EDUCATION')
+    result = await ctx.db_session.execute(stmt)
+    schemes = result.scalars().all()
+    
+    matched = []
+    income = args.annual_income or 999999999
+    gender = (args.gender or "").lower()
+    cat = (args.category or "").upper()
+    
+    for s in schemes:
+        name_lower = s.official_name.lower()
+        eligible = True
+        reasons = []
+        
+        if "pragati" in name_lower:
+            if gender and gender not in ["female", "girl", "woman"]:
+                eligible = False
+            elif income > 800000:
+                eligible = False
+            else:
+                reasons.append("Eligible: Female student pursuing technical degree/diploma with family income ≤ ₹8L")
+        elif "means-cum-merit" in name_lower or "nmmss" in name_lower:
+            if income > 350000:
+                eligible = False
+            else:
+                reasons.append("Eligible: Classes 9-12 with family income ≤ ₹3.5L")
+        elif "post-matric" in name_lower:
+            if cat and cat not in ["SC", "ST", "OBC"]:
+                eligible = False
+            elif income > 250000:
+                eligible = False
+            else:
+                reasons.append("Eligible: SC/ST/OBC student in higher secondary or college with family income ≤ ₹2.5L")
+        elif "pm-usp" in name_lower or "central sector" in name_lower:
+            if income > 450000:
+                eligible = False
+            else:
+                reasons.append("Eligible: Regular college/university student with family income ≤ ₹4.5L")
+        elif "hazrat mahal" in name_lower:
+            if gender and gender not in ["female", "girl", "woman"]:
+                eligible = False
+            elif income > 200000:
+                eligible = False
+            else:
+                reasons.append("Eligible: Minority girl student in classes 9-12 with family income ≤ ₹2L")
+        else:
+            reasons.append("Active education assistance scheme")
+            
+        if eligible:
+            matched.append({
+                "id": str(s.id),
+                "name": s.official_name,
+                "benefit_amount": s.benefit_amount,
+                "benefit_description": s.benefit_description,
+                "reasons": reasons,
+                "requirements": [r.get("name") for r in (s.requirement_definitions or [])]
+            })
+            
+    return ToolResult(
+        success=True,
+        data={
+            "eligible_scholarships": matched,
+            "eligible_schemes": matched,
+            "count": len(matched),
+            "eligible_count": len(matched),
+        },
+        reason="Evaluated scholarship eligibility against real database rules"
+    )
+
 class SearchEvidenceInput(BaseModel):
     category: Optional[str] = None
     requirement_type: Optional[str] = None

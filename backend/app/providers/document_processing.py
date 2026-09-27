@@ -96,7 +96,7 @@ Important rules:
 
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY") or os.environ.get("AI_API_KEY")
-        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-1.5-flash")
         self._client = None
 
     @property

@@ -79,9 +79,11 @@ async def engine():
     # 3. MIGRATIONS - use Alembic instead of create_all
     run_migrations(db_url)
     
-    # 4. SEEDING - seed using the canonical logic
+    # 4. SEEDING - seed using the canonical logic + national welfare schemes
     from app.db.seed import seed_database
     await seed_database(db_url)
+    from scripts.seed_comprehensive_schemes import seed_comprehensive_schemes
+    await seed_comprehensive_schemes(db_url)
     
     test_engine = create_async_engine(db_url, echo=False)
     
