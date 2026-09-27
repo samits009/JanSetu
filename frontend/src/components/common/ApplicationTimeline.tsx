@@ -1,52 +1,67 @@
 import React from 'react';
 
 export type ApplicationStage =
+  | 'eligibility'
+  | 'requirements'
+  | 'preparation'
   | 'prepared'
-  | 'reviewed'
   | 'consent'
+  | 'reviewed'
+  | 'submission'
   | 'submitted'
+  | 'tracking'
   | 'gov_review'
-  | 'decision';
+  | 'decision'
+  | 'recovery';
 
 interface ApplicationTimelineProps {
-  currentStage: ApplicationStage;
+  currentStage: ApplicationStage | string;
+  isBlocked?: boolean;
   className?: string;
 }
 
-export function ApplicationTimeline({ currentStage, className = '' }: ApplicationTimelineProps) {
-  const stages: { key: ApplicationStage; label: string; sub: string }[] = [
-    { key: 'prepared', label: 'Prepared', sub: 'Evidence Compiled' },
-    { key: 'reviewed', label: 'Reviewed', sub: 'Rules Verified' },
-    { key: 'consent', label: 'Consent', sub: 'Citizen Authorized' },
-    { key: 'submitted', label: 'Handoff', sub: 'Official Portal' },
-    { key: 'gov_review', label: 'Gov Review', sub: 'Department Ingestion' },
-    { key: 'decision', label: 'Decision', sub: 'Benefit Granted' },
+export function ApplicationTimeline({ currentStage, isBlocked = false, className = '' }: ApplicationTimelineProps) {
+  // Section 22 Canonical Stages:
+  // Eligibility → Requirements → Preparation → Consent → Submission/Handoff → Tracking → Decision → Recovery
+  const canonicalStages = [
+    { key: 'eligibility', label: 'Eligibility', sub: 'Policy Rule Matched', alt: [] },
+    { key: 'requirements', label: 'Requirements', sub: 'Mandates Verified', alt: ['reviewed'] },
+    { key: 'preparation', label: 'Preparation', sub: 'Dossier Compiled', alt: ['prepared'] },
+    { key: 'consent', label: 'Consent', sub: 'Citizen Authorized', alt: [] },
+    { key: 'submission', label: 'Submission', sub: 'Official Handoff', alt: ['submitted'] },
+    { key: 'tracking', label: 'Tracking', sub: 'Statutory Queue', alt: ['gov_review'] },
+    { key: 'decision', label: 'Decision', sub: 'Benefit Granted', alt: [] },
+    { key: 'recovery', label: 'Recovery', sub: 'Continuity Safeguard', alt: [] },
   ];
 
-  const stageKeys = stages.map(s => s.key);
-  const currentIndex = stageKeys.indexOf(currentStage);
+  // Resolve current index based on canonical key or alternative aliases
+  const normalizedKey = (currentStage || '').toLowerCase();
+  const currentIndex = canonicalStages.findIndex(
+    (s) => s.key === normalizedKey || s.alt.includes(normalizedKey)
+  );
+  const activeIdx = currentIndex >= 0 ? currentIndex : 2; // Default to preparation if unknown
 
   return (
     <div className={`app-timeline-container ${className}`}>
       <div className="app-timeline-track">
-        {stages.map((stage, idx) => {
-          const isPassed = idx < currentIndex;
-          const isCurrent = idx === currentIndex;
-          const isPending = idx > currentIndex;
+        {canonicalStages.map((stage, idx) => {
+          const isPassed = idx < activeIdx;
+          const isCurrent = idx === activeIdx;
+          const isPending = idx > activeIdx;
 
           return (
             <div
               key={stage.key}
               className={`timeline-step ${isPassed ? 'passed' : ''} ${isCurrent ? 'current' : ''} ${
                 isPending ? 'pending' : ''
-              }`}
+              } ${isCurrent && isBlocked ? 'blocked' : ''}`}
             >
               <div className="timeline-node-wrap">
                 <div className="timeline-node">
-                  {isPassed ? '✓' : idx + 1}
+                  {isCurrent && isBlocked ? '!' : isPassed ? '✓' : idx + 1}
                   {isCurrent && <span className="timeline-node-halo" />}
                 </div>
-                {idx < stages.length - 1 && (
+                {idx < canonicalStages.length - 1 && (
                   <div className={`timeline-connector ${isPassed ? 'passed' : ''}`}>
                     {isCurrent && <span className="connector-flow-dot" />}
                   </div>

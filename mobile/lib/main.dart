@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'agent/agent_screen.dart';
@@ -252,18 +253,21 @@ class _MainShellScreenState extends State<MainShellScreen> {
         index: _currentIndex,
         children: screens,
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: JanSetuTokens.bgSurface.withOpacity(0.95),
-          border: const Border(
-            top: BorderSide(color: JanSetuTokens.glassBorder, width: 1),
-          ),
-        ),
-        child: SafeArea(
-          child: NavigationBar(
-            selectedIndex: _currentIndex,
-            backgroundColor: Colors.transparent,
-            indicatorColor: JanSetuTokens.goldPrimary.withOpacity(0.2),
+      bottomNavigationBar: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+          child: Container(
+            decoration: BoxDecoration(
+              color: JanSetuTokens.bgSurface.withOpacity(0.85),
+              border: const Border(
+                top: BorderSide(color: JanSetuTokens.glassBorder, width: 1),
+              ),
+            ),
+            child: SafeArea(
+              child: NavigationBar(
+                selectedIndex: _currentIndex,
+                backgroundColor: Colors.transparent,
+                indicatorColor: JanSetuTokens.goldPrimary.withOpacity(0.2),
             onDestinationSelected: (idx) => setState(() => _currentIndex = idx),
             destinations: [
               NavigationDestination(
@@ -300,6 +304,8 @@ class _MainShellScreenState extends State<MainShellScreen> {
           ),
         ),
       ),
-    );
+    ),
+  ),
+);
   }
 }

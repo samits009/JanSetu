@@ -22,7 +22,7 @@ export function JanSetuLogo({
     tagline ||
     (language === 'hi'
       ? 'खोजें • सत्यापित करें • कार्यवाही करें • सुरक्षित रखें'
-      : 'Discover. Verify. Act. Protect.');
+      : 'DISCOVER. VERIFY. ACT. PROTECT.');
 
   const sizeMap = {
     sm: { height: 32, font: 20, archWidth: 52, archHeight: 18, subFont: 8.5 },

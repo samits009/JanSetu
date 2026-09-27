@@ -5,26 +5,53 @@
    ============================================================ */
 
 :root {
-  /* Core Color Palette */
-  --bg-deep: #060a12;
-  --bg-navy: #090e1a;
+  /* ============================================================
+     JANSETU SOVEREIGN DESIGN TOKENS (SPECIFICATION COMPLIANT)
+     ============================================================ */
+  --js-bg: #060a12;
+  --js-bg-secondary: #0a0f1d;
+  --js-glass: rgba(13, 20, 36, 0.68);
+  --js-glass-strong: rgba(13, 20, 36, 0.85);
+  --js-glass-subtle: rgba(255, 255, 255, 0.05);
+  --js-border: rgba(255, 255, 255, 0.10);
+  --js-border-focus: rgba(245, 199, 124, 0.55);
+  --js-border-subtle: rgba(255, 255, 255, 0.06);
+  --js-gold: #f5c77c;
+  --js-gold-light: #fce7a9;
+  --js-gold-dark: #e5a952;
+  --js-gold-glow: rgba(245, 199, 124, 0.35);
+  --js-text: #f8fafc;
+  --js-text-warm: #fffdfa;
+  --js-text-muted: #94a3b8;
+  --js-text-subtle: #64748b;
+  --js-text-gold: #f5c77c;
+  --js-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 45px rgba(245, 199, 124, 0.05);
+  --js-radius-card: 24px;
+  --js-radius-input: 9999px;
+  --js-radius-pill: 9999px;
+  --js-font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --js-font-body: 'Noto Sans', 'Noto Sans Devanagari', -apple-system, sans-serif;
+
+  /* Semantic Aliases & Compatibility Tokens */
+  --bg-deep: var(--js-bg);
+  --bg-navy: var(--js-bg-secondary);
   --bg-surface: #0d1527;
-  --bg-glass-primary: rgba(13, 20, 36, 0.72);
-  --bg-glass-secondary: rgba(19, 29, 51, 0.6);
-  --bg-glass-tertiary: rgba(255, 255, 255, 0.05);
+  --bg-glass-primary: var(--js-glass);
+  --bg-glass-secondary: var(--js-glass-strong);
+  --bg-glass-tertiary: var(--js-glass-subtle);
 
   /* Borders & Glass Highlights */
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-focus: rgba(245, 199, 124, 0.65);
-  --glass-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  --glass-border: var(--js-border);
+  --glass-border-focus: var(--js-border-focus);
+  --glass-inner-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --glass-shadow: var(--js-shadow);
 
   /* Primary Luminous Accent: Warm Champagne Gold / Amber */
-  --gold-primary: #f5c77c;
-  --gold-light: #fce7a9;
-  --gold-dark: #e5a952;
-  --gold-glow: rgba(245, 199, 124, 0.4);
-  --gold-halo: 0 0 25px rgba(245, 199, 124, 0.45);
+  --gold-primary: var(--js-gold);
+  --gold-light: var(--js-gold-light);
+  --gold-dark: var(--js-gold-dark);
+  --gold-glow: var(--js-gold-glow);
+  --gold-halo: 0 0 24px var(--js-gold-glow);
   --gold-text-on-btn: #140e05;
 
   /* Secondary Accents */
@@ -38,14 +65,14 @@
   --rose-glow: rgba(244, 63, 94, 0.35);
 
   /* Typography Colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-gold: #f5c77c;
+  --text-primary: var(--js-text);
+  --text-secondary: var(--js-text-muted);
+  --text-muted: var(--js-text-subtle);
+  --text-gold: var(--js-text-gold);
 
   /* Typography Families */
-  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Noto Sans', 'Noto Sans Devanagari', -apple-system, sans-serif;
+  --font-display: var(--js-font-display);
+  --font-body: var(--js-font-body);
 
   /* Layout Constants */
   --topbar-height: 68px;
@@ -135,9 +162,31 @@ a:hover {
   transition: opacity 0.5s ease;
 }
 
-/* Luminous Traveling Light Dash along Setu Bridge Path */
+/* JanSetu Sovereign Bridge Path: Gentle Initial Draw-in + Subtle Calm Ambient Glow */
+.jansetu-bridge-path-draw {
+  stroke-dasharray: 2200;
+  stroke-dashoffset: 2200;
+  animation: drawBridgePath 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards, calmBridgeGlow 7s ease-in-out 2.2s infinite alternate;
+}
+
+@keyframes drawBridgePath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes calmBridgeGlow {
+  0% {
+    opacity: 0.88;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Luminous Traveling Light Dash along Setu Bridge Path (subtle secondary) */
 .traveling-light {
-  animation: flowLight 12s linear infinite;
+  animation: flowLight 16s linear infinite;
 }
 
 @keyframes flowLight {
@@ -146,6 +195,19 @@ a:hover {
   }
   100% {
     stroke-dashoffset: -560;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jansetu-bridge-path-draw {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+  .traveling-light {
+    animation: none !important;
+  }
+  .bokeh-particle {
+    animation: none !important;
   }
 }
 
@@ -317,6 +379,20 @@ a:hover {
   font-size: 14px;
 }
 
+/* Chrome/Safari Autofill Dark Glass Override */
+.glass-input-field:-webkit-autofill,
+.glass-input-field:-webkit-autofill:hover, 
+.glass-input-field:-webkit-autofill:focus,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(13, 20, 36, 0.92) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(13, 20, 36, 0.92) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--gold-primary);
+}
+
 .glass-input-icon-right {
   display: flex;
   align-items: center;
@@ -476,9 +552,162 @@ a:hover {
 }
 
 /* ============================================================
-   5. SEGMENTED LANGUAGE SELECTOR (LANGUAGESELECTOR)
+   5. UNIFIED CONTROL CLUSTER & LANGUAGE SELECTOR
    ============================================================ */
 
+.auth-control-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.glass-circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--js-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--js-border);
+  display: grid;
+  place-items: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.glass-circle-btn:hover {
+  color: var(--gold-primary);
+  border-color: rgba(245, 199, 124, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1.5px);
+}
+
+/* Collapsed Glass Capsule Button */
+.glass-lang-capsule-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: var(--js-radius-pill);
+  background: var(--js-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--js-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 16px rgba(0, 0, 0, 0.3);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.glass-lang-capsule-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(245, 199, 124, 0.4);
+  transform: translateY(-1.5px);
+}
+
+.lang-globe-icon {
+  display: flex;
+  align-items: center;
+  color: var(--gold-primary);
+}
+
+.lang-active-code {
+  letter-spacing: 0.02em;
+}
+
+.lang-chevron-icon {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Floating Frosted Glass Popover Dropdown */
+.glass-lang-popover {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  min-width: 220px;
+  background: var(--js-glass-strong);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid var(--js-border);
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(245, 199, 124, 0.08);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: fadeInDown 0.22s var(--ease-spring);
+}
+
+.glass-popover-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 6px 12px;
+}
+
+.glass-lang-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--text-secondary);
+  font-family: inherit;
+  width: 100%;
+}
+
+.glass-lang-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glass-lang-item.selected {
+  background: rgba(245, 199, 124, 0.14);
+  border-color: rgba(245, 199, 124, 0.35);
+  color: var(--gold-primary);
+}
+
+.lang-item-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lang-item-main {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.lang-item-sub {
+  font-size: 11.5px;
+  opacity: 0.75;
+}
+
+.lang-gold-check {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--gold-primary);
+}
+
+/* Legacy Segmented pill support */
 .glass-lang-pill {
   display: inline-flex;
   align-items: center;
@@ -859,15 +1088,15 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 32px 16px 48px;
   z-index: 10;
 }
 
 .auth-top-bar {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  top: 24px;
+  left: 24px;
+  right: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -875,38 +1104,42 @@ a:hover {
 }
 
 .auth-back-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(13, 20, 36, 0.7);
+  background: var(--js-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--js-border);
   display: grid;
   place-items: center;
   color: var(--text-primary);
   font-size: 20px;
+  cursor: pointer;
   transition: all var(--transition-fast);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 .auth-back-btn:hover {
   background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(245, 199, 124, 0.4);
+  color: var(--gold-primary);
   transform: translateX(-2px);
 }
 
 .auth-card-container {
   width: 100%;
-  max-width: 410px; /* Primary mobile standard 390-410px */
+  max-width: 440px; /* Reference proportion 420–470px */
   margin: 0 auto;
   position: relative;
   z-index: 10;
-  animation: cardFadeIn 0.4s var(--ease-spring);
+  animation: cardFloatEntrance 0.5s var(--ease-spring);
 }
 
-@keyframes cardFadeIn {
+@keyframes cardFloatEntrance {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.98);
+    transform: translateY(16px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -915,8 +1148,13 @@ a:hover {
 }
 
 .auth-card {
-  padding: 32px 24px;
-  border-radius: 32px;
+  padding: 36px 30px;
+  border-radius: var(--js-radius-card); /* 24px per Section 6 */
+  background: var(--js-glass);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--js-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--js-shadow);
 }
 
 .auth-header {
@@ -1481,6 +1719,13 @@ a:hover {
   border-color: var(--gold-primary);
   color: var(--gold-primary);
   box-shadow: 0 0 16px rgba(245, 199, 124, 0.5);
+}
+
+.timeline-step.blocked .timeline-node {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: #f43f5e;
+  color: #f87171;
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.5);
 }
 
 .timeline-node-halo {
@@ -2270,21 +2515,37 @@ a:hover {
 
 /* Mobile Touch Target & Spacing Optimization (390 x 844) */
 @media (max-width: 640px) {
+  .auth-page {
+    padding: 16px 12px 32px;
+    align-items: flex-start;
+    padding-top: 72px;
+  }
+
+  .auth-top-bar {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+  }
+
+  .auth-card-container {
+    max-width: 100%;
+  }
+
+  .auth-card {
+    border-radius: 20px;
+    padding: 26px 18px;
+  }
+
   .glass-btn {
     min-height: 48px;
   }
   
   .glass-input-capsule {
-    min-height: 52px;
+    min-height: 50px;
   }
 
   .nav-tab-item {
     min-height: 44px;
-  }
-
-  .auth-card {
-    border-radius: 24px;
-    padding: 24px 20px;
   }
 
   .home-citizen-title {

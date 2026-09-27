@@ -135,10 +135,10 @@ export function Login() {
 
   return (
     <div className="auth-page">
-      {/* 1. Cinematic Background with Setu Bridge & Glowing River */}
+      {/* 1. Cinematic Background with Setu Bridge & Atmospheric Depth */}
       <CinematicBackground showBridgePath={true} intensity="high" />
 
-      {/* 2. Top Bar: Back Button (if register/forgot) + Segmented Language Pill */}
+      {/* 2. Top Bar: Back Button (if register/forgot) + Unified Top-Right Glass Cluster */}
       <header className="auth-top-bar">
         {mode !== 'login' ? (
           <button
@@ -154,17 +154,32 @@ export function Login() {
           <div /> /* Spacer */
         )}
 
-        <LanguageSelector />
+        <div className="auth-control-cluster">
+          <LanguageSelector />
+          <button
+            type="button"
+            className="glass-circle-btn"
+            aria-label="Information & Help"
+            title={language === 'hi' ? 'जनसेतु सहायता' : 'JanSetu Help'}
+            onClick={() => alert(language === 'hi' ? 'जनसेतु: नागरिक कल्याण और योजनाओं की सुरक्षित निरंतरता प्रणाली।' : 'JanSetu: Citizen Welfare Continuity & Sovereign Sovereign Bridge.')}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 16v-4" />
+              <path d="M12 8h.01" />
+            </svg>
+          </button>
+        </div>
       </header>
 
-      {/* 3. Centered Frosted Glass Auth Capsule Card */}
+      {/* 3. Centered Floating Frosted Glass Auth Card */}
       <main className="auth-card-container">
         <GlassCard className="auth-card" variant="default">
           {/* Brand Logo & Sovereign Tagline */}
           <div className="auth-header">
             <JanSetuLogo size="md" showTagline={true} />
 
-            {/* Dynamic Screen Titles according to Reference */}
+            {/* Dynamic Screen Titles strictly following Section 12 specifications */}
             {mode === 'login' && (
               <>
                 <h1 className="auth-title">
@@ -179,12 +194,12 @@ export function Login() {
             {mode === 'register' && (
               <>
                 <h1 className="auth-title">
-                  {language === 'hi' ? 'जनसेतु यात्रा शुरू करें' : 'Start Your JanSetu Journey'}
+                  {language === 'hi' ? 'खाता बनाएं' : 'Create Account'}
                 </h1>
                 <p className="auth-subtitle">
                   {language === 'hi'
-                    ? 'अपना खाता बनाएं और उन योजनाओं को खोजना शुरू करें जो आपके लिए उपयुक्त हो सकती हैं।'
-                    : 'Create your account and begin discovering benefits that may be relevant to you.'}
+                    ? 'कल्याणकारी अवसरों को खोजने और प्रबंधित करने के लिए जनसेतु से जुड़ें।'
+                    : 'Join JanSetu to discover and manage welfare opportunities.'}
                 </p>
               </>
             )}
@@ -192,7 +207,7 @@ export function Login() {
             {mode === 'forgot' && (
               <>
                 <h1 className="auth-title">
-                  {language === 'hi' ? 'पासवर्ड रीसेट करें' : 'Reset Your Password'}
+                  {language === 'hi' ? 'पासवर्ड रीसेट करें' : 'Reset Password'}
                 </h1>
                 <p className="auth-subtitle">
                   {language === 'hi'
@@ -329,7 +344,7 @@ export function Login() {
               </label>
             )}
 
-            {/* Primary Luminous Champagne CTA */}
+            {/* Primary Luminous CTA Button - Warm gold, clear text, no '—' or '→' (Section 11) */}
             <GlassButton
               type="submit"
               variant="primary"
@@ -337,12 +352,10 @@ export function Login() {
               loading={isSubmitting}
               style={{ marginTop: 8 }}
             >
-              {mode === 'login' && (language === 'hi' ? 'लॉग इन करें →' : 'Login →')}
-              {mode === 'register' && (language === 'hi' ? 'खाता बनाएं →' : 'Create Account →')}
-              {mode === 'forgot' && (language === 'hi' ? 'जारी रखें →' : 'Continue →')}
+              {mode === 'login' && (language === 'hi' ? 'लॉग इन करें' : 'Log In')}
+              {mode === 'register' && (language === 'hi' ? 'खाता बनाएं' : 'Create Account')}
+              {mode === 'forgot' && (language === 'hi' ? 'जारी रखें' : 'Continue')}
             </GlassButton>
-
-
 
             {/* Back to Login Secondary for Forgot Password */}
             {mode === 'forgot' && (
@@ -357,17 +370,17 @@ export function Login() {
                   size="md"
                   onClick={() => handleModeSwitch('login')}
                 >
-                  {language === 'hi' ? '← लॉग इन पर वापस जाएं' : '← Back to Login'}
+                  {language === 'hi' ? 'लॉग इन पर वापस जाएं' : 'Back to Login'}
                 </GlassButton>
               </>
             )}
           </form>
 
-          {/* Footer Switching Prompt */}
+          {/* Footer Switching Prompt strictly following Section 12 semantics */}
           <footer className="auth-footer">
             {mode === 'login' && (
               <p>
-                {language === 'hi' ? 'जनसेतु पर नए हैं?' : 'New to JanSetu?'}
+                {language === 'hi' ? 'खाता नहीं है? ' : "Don't have an account? "}
                 <button
                   type="button"
                   className="auth-footer-link"
@@ -380,13 +393,13 @@ export function Login() {
 
             {mode === 'register' && (
               <p>
-                {language === 'hi' ? 'क्या आपके पास पहले से एक खाता मौजूद है?' : 'Already have an account?'}
+                {language === 'hi' ? 'क्या आपके पास पहले से खाता है? ' : 'Already have an account? '}
                 <button
                   type="button"
                   className="auth-footer-link"
                   onClick={() => handleModeSwitch('login')}
                 >
-                  {language === 'hi' ? 'लॉग इन करें' : 'Login'}
+                  {language === 'hi' ? 'लॉग इन करें' : 'Log in'}
                 </button>
               </p>
             )}
