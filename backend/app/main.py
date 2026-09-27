@@ -54,6 +54,17 @@ app.include_router(scheme_admin.router, prefix="/api/scheme-versions", tags=["Sc
 from app.api import scheme_admin as scheme_review_router
 app.include_router(scheme_review_router.router, prefix="/api/scheme-review", tags=["Scheme Review"])
 
+@app.get("/")
+def root():
+    return {
+        "app": "JanSetu API",
+        "status": "online",
+        "version": "0.1.0",
+        "documentation": "/docs",
+        "health": "/api/health",
+        "readiness": "/api/deployment/readiness",
+    }
+
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
