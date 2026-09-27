@@ -7,6 +7,7 @@ import '../core/theme/tokens.dart';
 import '../shared/widgets/cinematic_scaffold.dart';
 import '../shared/widgets/glass_card.dart';
 import '../shared/widgets/gold_button.dart';
+import '../shared/widgets/jansetu_brand.dart';
 
 class HomeScreen extends StatefulWidget {
   final CitizenRepository citizenRepository;
@@ -130,9 +131,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.refresh_rounded, color: JanSetuTokens.goldPrimary),
-                    onPressed: _fetchWelfareData,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.refresh_rounded, color: JanSetuTokens.goldPrimary),
+                        onPressed: _fetchWelfareData,
+                        tooltip: 'Refresh',
+                      ),
+                      const SizedBox(width: 4),
+                      const JanSetuBrand(
+                        variant: JanSetuBrandVariant.icon,
+                        size: JanSetuBrandSize.sm,
+                      ),
+                    ],
                   ),
                 ],
               ),

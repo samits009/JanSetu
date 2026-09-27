@@ -25,7 +25,7 @@ async def test_register_creates_user_and_session(db_session):
         assert data["authenticated"] is True
         assert data["citizen_name"] == "Pooja Sharma"
         assert data["email"] == "pooja@example.com"
-        assert data["phone"] == "9876500001"
+        assert data["phone"] in ("9876500001", "+919876500001")
         assert data["preferred_language"] == "hi"
         assert data["citizen_id"] is not None
         assert data["user_id"] is not None

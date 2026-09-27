@@ -1,25 +1,33 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { apiClient, ApiError } from '../services/apiClient';
+import { apiClient } from '../services/apiClient';
 
 export interface UserProfile {
   user_id: string;
-  email: string;
+  identity_id?: string;
+  email?: string;
   phone?: string;
+  mobile_number?: string;
   citizen_id: string;
-  preferred_language: 'en' | 'hi';
-  is_active: boolean;
+  citizen_name?: string;
   name?: string;
+  preferred_language: 'en' | 'hi';
+  is_active?: boolean;
+  email_verified?: boolean;
+  mobile_verified?: boolean;
+  requires_mobile?: boolean;
+  google_linked?: boolean;
   onboarding_completed?: boolean;
+  onboarding_step?: number;
 }
 
 export interface RegisterPayload {
+  name: string;
   email: string;
-  password: string;
+  mobile_number: string;
   phone?: string;
-  name?: string;
+  password: string;
+  confirm_password?: string;
   preferred_language?: 'en' | 'hi';
-  onboarding_completed?: boolean;
-  onboarding_step?: number;
 }
 
 interface AuthContextType {
@@ -27,14 +35,18 @@ interface AuthContextType {
   currentCitizenId: string;
   isAuthenticated: boolean;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (payload: RegisterPayload) => Promise<void>;
+  login: (identifier: string, password: string) => Promise<UserProfile>;
+  register: (payload: RegisterPayload) => Promise<UserProfile>;
+  linkGoogle: (email: string, password: string, pendingSub: string) => Promise<UserProfile>;
+  continueWithGoogle: () => void;
   logout: () => Promise<void>;
   refreshUser: () => Promise<UserProfile | null>;
   isDemoMode: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -43,9 +55,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchCurrentUser = useCallback(async (): Promise<UserProfile | null> => {
     try {
       const data = await apiClient.get<UserProfile>('/api/auth/me');
+      // Normalize name from citizen_name
+      if (data && !data.name && data.citizen_name) {
+        data.name = data.citizen_name;
+      }
       setUser(data);
       return data;
-    } catch (err) {
+    } catch {
       setUser(null);
       return null;
     }
@@ -55,15 +71,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fetchCurrentUser().finally(() => setLoading(false));
   }, [fetchCurrentUser]);
 
-  const login = async (email: string, password: string) => {
-    // Always authenticate against the real backend — no client-side fallbacks.
-    await apiClient.post('/api/auth/login', { email, password, username: email });
-    await fetchCurrentUser();
+  const login = async (identifier: string, password: string): Promise<UserProfile> => {
+    // Authenticate against PostgreSQL backend — supports email or mobile number
+    await apiClient.post('/api/auth/login', {
+      username: identifier,
+      email: identifier,
+      mobile_number: identifier,
+      password,
+    });
+    const profile = await fetchCurrentUser();
+    if (!profile) {
+      throw new Error('Failed to retrieve user session after login.');
+    }
+    return profile;
   };
 
-  const register = async (payload: RegisterPayload) => {
-    await apiClient.post('/api/auth/register', payload);
-    await fetchCurrentUser();
+  const register = async (payload: RegisterPayload): Promise<UserProfile> => {
+    await apiClient.post('/api/auth/register', {
+      ...payload,
+      phone: payload.mobile_number || payload.phone,
+    });
+    const profile = await fetchCurrentUser();
+    if (!profile) {
+      throw new Error('Failed to retrieve user session after registration.');
+    }
+    return profile;
+  };
+
+  const linkGoogle = async (email: string, password: string, pendingSub: string): Promise<UserProfile> => {
+    await apiClient.post('/api/auth/link-google', {
+      email,
+      password,
+      pending_sub: pendingSub,
+    });
+    const profile = await fetchCurrentUser();
+    if (!profile) {
+      throw new Error('Failed to retrieve user session after linking Google account.');
+    }
+    return profile;
+  };
+
+  const continueWithGoogle = () => {
+    // Real Authorization Code redirect flow to Google Sign-In
+    window.location.href = `${BASE_URL}/api/auth/google/login`;
   };
 
   const logout = async () => {
@@ -83,6 +133,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loading,
     login,
     register,
+    linkGoogle,
+    continueWithGoogle,
     logout,
     refreshUser: fetchCurrentUser,
     isDemoMode: false,

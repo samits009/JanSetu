@@ -1,5 +1,6 @@
 export * from './CinematicBackground';
 export * from './JanSetuLogo';
+export * from './JanSetuBrand';
 export * from './LanguageSelector';
 export * from './GlassCard';
 export * from './GlassInput';

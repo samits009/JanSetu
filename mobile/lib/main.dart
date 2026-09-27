@@ -19,6 +19,7 @@ import 'documents/documents_screen.dart';
 import 'home/home_screen.dart';
 import 'onboarding/onboarding_screen.dart';
 import 'profile/profile_screen.dart';
+import 'shared/widgets/jansetu_brand.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -149,10 +150,19 @@ class _JanSetuAppState extends State<JanSetuApp> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.account_balance_rounded, color: JanSetuTokens.goldPrimary, size: 48),
-              SizedBox(height: 16),
-              CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(JanSetuTokens.goldPrimary),
+              JanSetuBrand(
+                variant: JanSetuBrandVariant.full,
+                size: JanSetuBrandSize.lg,
+                showTagline: true,
+              ),
+              SizedBox(height: 24),
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  valueColor: AlwaysStoppedAnimation<Color>(JanSetuTokens.goldPrimary),
+                ),
               ),
             ],
           ),

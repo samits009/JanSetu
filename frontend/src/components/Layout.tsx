@@ -5,6 +5,7 @@ import { useI18n } from '../i18n/I18nContext';
 import {
   CinematicBackground,
   JanSetuLogo,
+  JanSetuBrand,
   LanguageSelector,
   GlassButton,
   GlassDrawer,
@@ -113,7 +114,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* 2. Desktop Glass Sidebar Navigation (≥ 900px) */}
       <aside className="desktop-sidebar">
         <div style={{ padding: '8px 12px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <JanSetuLogo size="sm" showTagline={true} onClick={() => navigate('/')} />
+          <JanSetuBrand variant="full" size="sm" showTagline={true} onClick={() => navigate('/')} />
         </div>
 
         <nav className="sidebar-nav-list" aria-label="Desktop Primary Navigation">
@@ -146,7 +147,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* 3. Frosted Glass Topbar */}
       <header className="app-topbar">
         <div className="topbar-brand" onClick={() => navigate('/')}>
-          <JanSetuLogo size="sm" showTagline={false} />
+          <JanSetuBrand variant="compact" size="sm" />
         </div>
 
         <div className="topbar-actions" ref={menuRef}>

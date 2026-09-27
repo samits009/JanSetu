@@ -1,36 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useI18n } from '../i18n/I18nContext';
 import {
   CinematicBackground,
   JanSetuLogo,
+  JanSetuBrand,
   LanguageSelector,
   GlassCard,
   GlassInput,
   GlassButton,
 } from '../components/common';
 
-type AuthMode = 'login' | 'register' | 'forgot';
+type AuthMode = 'login' | 'register' | 'forgot' | 'link_google';
 
 export function Login() {
   const [mode, setMode] = useState<AuthMode>('login');
+  const [identifier, setIdentifier] = useState(''); // Email or Mobile for login
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
+  const [pendingSub, setPendingSub] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
 
-  const { login, register } = useAuth();
+  const { login, register, linkGoogle, continueWithGoogle } = useAuth();
   const { language, t } = useI18n();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = (location.state as any)?.from?.pathname || '/';
+
+  // Parse URL query parameters for OAuth callbacks and errors
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const errParam = params.get('error');
+    const modeParam = params.get('mode');
+    const emailParam = params.get('email');
+    const subParam = params.get('pending_sub');
+
+    if (emailParam) {
+      setEmail(emailParam);
+      setIdentifier(emailParam);
+    }
+    if (subParam) {
+      setPendingSub(subParam);
+    }
+
+    if (modeParam === 'link_google' || errParam === 'account_linking_required') {
+      setMode('link_google');
+      setError(
+        language === 'hi'
+          ? `इस ईमेल (${emailParam || ''}) के साथ एक जनसेतु खाता पहले से मौजूद है। अपने गूगल खाते को लिंक करने के लिए कृपया अपना पासवर्ड दर्ज करें।`
+          : `An existing JanSetu account was found for ${emailParam || 'this email'}. Please enter your password to link your Google account securely.`
+      );
+    } else if (errParam === 'google_cancelled') {
+      setError(language === 'hi' ? 'गूगल साइन-इन रद्द कर दिया गया।' : 'Google sign-in was cancelled.');
+    } else if (errParam === 'invalid_state') {
+      setError(language === 'hi' ? 'अमान्य सुरक्षा स्थिति। कृपया पुनः प्रयास करें।' : 'Invalid security state. Please try again.');
+    } else if (errParam === 'google_config_missing') {
+      setError(
+        language === 'hi'
+          ? 'सर्वर पर गूगल साइन-इन अभी कॉन्फ़िगर नहीं है। कृपया ईमेल और मोबाइल नंबर से पंजीकरण करें।'
+          : 'Google sign-in is not yet configured on this server. Please create an account with email and mobile.'
+      );
+    } else if (errParam === 'google_auth_failed') {
+      setError(language === 'hi' ? 'गूगल प्रमाणीकरण विफल रहा।' : 'Google authentication failed. Please try again.');
+    }
+  }, [location.search, language]);
 
   const handleModeSwitch = (newMode: AuthMode) => {
     setMode(newMode);
@@ -43,9 +85,9 @@ export function Login() {
     setError(null);
     setResetSuccessMessage(null);
 
-    // Validation
+    // 1. Password Reset Mode
     if (mode === 'forgot') {
-      if (!email.trim()) {
+      if (!identifier.trim()) {
         setError(language === 'hi' ? 'कृपया ईमेल या मोबाइल नंबर दर्ज करें' : 'Please enter your email or mobile number');
         return;
       }
@@ -57,18 +99,44 @@ export function Login() {
       return;
     }
 
-    if (!email || !password) {
-      setError(t('auth.errorRequired', 'Please fill in all mandatory fields'));
+    // 2. Safe Google Account Linking Mode
+    if (mode === 'link_google') {
+      if (!password) {
+        setError(language === 'hi' ? 'कृपया अपना जनसेतु पासवर्ड दर्ज करें' : 'Please enter your JanSetu password');
+        return;
+      }
+      setIsSubmitting(true);
+      try {
+        const profile = await linkGoogle(email, password, pendingSub);
+        if (profile.onboarding_completed) {
+          navigate('/', { replace: true });
+        } else {
+          navigate('/onboarding', { replace: true });
+        }
+      } catch (err: any) {
+        setError(err?.message || (language === 'hi' ? 'खाता लिंक करना विफल रहा।' : 'Account linking failed.'));
+      } finally {
+        setIsSubmitting(false);
+      }
       return;
     }
 
+    // 3. Normal Registration Mode
     if (mode === 'register') {
       if (!name.trim()) {
         setError(language === 'hi' ? 'कृपया अपना पूरा नाम दर्ज करें' : 'Please enter your full name');
         return;
       }
+      if (!email.trim() || !email.includes('@')) {
+        setError(language === 'hi' ? 'कृपया एक वैध ईमेल पता दर्ज करें' : 'Please enter a valid email address');
+        return;
+      }
+      if (!mobileNumber.trim()) {
+        setError(language === 'hi' ? 'कृपया अपना 10 अंकों का मोबाइल नंबर दर्ज करें' : 'Please enter your 10-digit mobile number');
+        return;
+      }
       if (password.length < 8) {
-        setError(t('auth.errorShortPass', 'Password must be at least 8 characters'));
+        setError(t('auth.errorShortPass', 'Password must be at least 8 characters long'));
         return;
       }
       if (password !== confirmPassword) {
@@ -79,39 +147,56 @@ export function Login() {
         setError(language === 'hi' ? 'कृपया सेवा की शर्तों और गोपनीयता नीति को स्वीकार करें' : 'Please agree to the Terms of Service & Privacy Policy');
         return;
       }
+
+      setIsSubmitting(true);
+      try {
+        await register({
+          name: name.trim(),
+          email: email.trim(),
+          mobile_number: mobileNumber.trim(),
+          password,
+          confirm_password: confirmPassword,
+          preferred_language: language as 'en' | 'hi',
+        });
+        // Registration takes new user to Onboarding
+        navigate('/onboarding', { replace: true });
+      } catch (err: any) {
+        setError(err?.message || (language === 'hi' ? 'पंजीकरण विफल रहा।' : 'Registration failed.'));
+      } finally {
+        setIsSubmitting(false);
+      }
+      return;
     }
 
-    setIsSubmitting(true);
-    try {
-      if (mode === 'register') {
-        await register({
-          email,
-          password,
-          name: name.trim(),
-          preferred_language: language,
-        });
-        navigate('/onboarding', { replace: true });
-      } else {
-        await login(email, password);
-        navigate(from === '/login' || from === '/register' ? '/' : from, { replace: true });
+    // 4. Login Mode (Email or Mobile Number)
+    if (mode === 'login') {
+      if (!identifier.trim()) {
+        setError(language === 'hi' ? 'कृपया ईमेल या मोबाइल नंबर दर्ज करें' : 'Please enter your email or mobile number');
+        return;
       }
-    } catch (err: any) {
-      setError(
-        err?.message ||
-          (mode === 'register'
-            ? language === 'hi'
-              ? 'पंजीकरण विफल रहा। ईमेल पहले से उपयोग में हो सकता है।'
-              : 'Registration failed. Email may already be in use.'
-            : language === 'hi'
-            ? 'अमान्य क्रेडेंशियल्स। कृपया ईमेल और पासवर्ड की जांच करें।'
-            : 'Invalid credentials. Please verify your email and password.')
-      );
-    } finally {
-      setIsSubmitting(false);
+      if (!password) {
+        setError(language === 'hi' ? 'कृपया अपना पासवर्ड दर्ज करें' : 'Please enter your password');
+        return;
+      }
+
+      setIsSubmitting(true);
+      try {
+        const profile = await login(identifier.trim(), password);
+        // Returning user redirect: if onboarding is complete -> Home, else -> Onboarding
+        if (!profile.onboarding_completed || profile.requires_mobile) {
+          navigate('/onboarding', { replace: true });
+        } else {
+          navigate(from === '/login' || from === '/register' ? '/' : from, { replace: true });
+        }
+      } catch (err: any) {
+        setError(err?.message || (language === 'hi' ? 'अमान्य क्रेडेंशियल्स।' : 'Invalid credentials.'));
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
-  // SVG Icons
+  // SVGs
   const userIcon = (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -126,10 +211,25 @@ export function Login() {
     </svg>
   );
 
+  const phoneIcon = (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+
   const lockIcon = (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+
+  const googleIcon = (
+    <svg width="18" height="18" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+      <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+      <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+      <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+      <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
     </svg>
   );
 
@@ -138,7 +238,7 @@ export function Login() {
       {/* 1. Cinematic Background with Setu Bridge & Atmospheric Depth */}
       <CinematicBackground showBridgePath={true} intensity="high" />
 
-      {/* 2. Top Bar: Back Button (if register/forgot) + Unified Top-Right Glass Cluster */}
+      {/* 2. Top Bar: Back Button (if register/forgot/link) + Unified Top-Right Glass Cluster */}
       <header className="auth-top-bar">
         {mode !== 'login' ? (
           <button
@@ -161,7 +261,7 @@ export function Login() {
             className="glass-circle-btn"
             aria-label="Information & Help"
             title={language === 'hi' ? 'जनसेतु सहायता' : 'JanSetu Help'}
-            onClick={() => alert(language === 'hi' ? 'जनसेतु: नागरिक कल्याण और योजनाओं की सुरक्षित निरंतरता प्रणाली।' : 'JanSetu: Citizen Welfare Continuity & Sovereign Sovereign Bridge.')}
+            onClick={() => alert(language === 'hi' ? 'जनसेतु: नागरिक कल्याण और योजनाओं की सुरक्षित निरंतरता प्रणाली।' : 'JanSetu: Sovereign Citizen Welfare & Continuity Platform.')}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
@@ -177,9 +277,9 @@ export function Login() {
         <GlassCard className="auth-card" variant="default">
           {/* Brand Logo & Sovereign Tagline */}
           <div className="auth-header">
-            <JanSetuLogo size="md" showTagline={true} />
+            <JanSetuBrand variant="full" size="lg" showTagline={true} />
 
-            {/* Dynamic Screen Titles strictly following Section 12 specifications */}
+            {/* Screen Titles */}
             {mode === 'login' && (
               <>
                 <h1 className="auth-title">
@@ -200,6 +300,19 @@ export function Login() {
                   {language === 'hi'
                     ? 'कल्याणकारी अवसरों को खोजने और प्रबंधित करने के लिए जनसेतु से जुड़ें।'
                     : 'Join JanSetu to discover and manage welfare opportunities.'}
+                </p>
+              </>
+            )}
+
+            {mode === 'link_google' && (
+              <>
+                <h1 className="auth-title">
+                  {language === 'hi' ? 'गूगल खाता लिंक करें' : 'Link Google Account'}
+                </h1>
+                <p className="auth-subtitle">
+                  {language === 'hi'
+                    ? 'सुरक्षा सत्यापन के लिए अपना जनसेतु पासवर्ड दर्ज करें।'
+                    : 'Enter your JanSetu password to link your Google identity securely.'}
                 </p>
               </>
             )}
@@ -245,122 +358,277 @@ export function Login() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="auth-form" noValidate>
-            {/* Full Name (Register Mode Only) */}
+            {/* REGISTER MODE FIELDS */}
             {mode === 'register' && (
-              <GlassInput
-                type="text"
-                placeholder={language === 'hi' ? 'पूरा नाम' : 'Full Name'}
-                leftIcon={userIcon}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                autoComplete="name"
-                required
-              />
-            )}
+              <>
+                {/* 1. Full Name */}
+                <GlassInput
+                  type="text"
+                  placeholder={language === 'hi' ? 'पूरा नाम' : 'Full Name'}
+                  leftIcon={userIcon}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
+                  required
+                />
 
-            {/* Email or Mobile Number */}
-            <GlassInput
-              type="text"
-              placeholder={language === 'hi' ? 'ईमेल या मोबाइल नंबर' : 'Email or Mobile Number'}
-              leftIcon={mailIcon}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="username"
-              required
-            />
+                {/* 2. Email Address */}
+                <GlassInput
+                  type="email"
+                  placeholder={language === 'hi' ? 'ईमेल पता' : 'Email Address'}
+                  leftIcon={mailIcon}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  required
+                />
 
-            {/* Password (Login & Register Modes) */}
-            {mode !== 'forgot' && (
-              <GlassInput
-                isPassword={true}
-                placeholder={
-                  mode === 'register'
-                    ? language === 'hi'
-                      ? 'पासवर्ड बनाएं (न्यूनतम 8 वर्ण)'
-                      : 'Create a password'
-                    : language === 'hi'
-                    ? 'अपना पासवर्ड दर्ज करें'
-                    : 'Enter your password'
-                }
-                leftIcon={lockIcon}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
-                required
-              />
-            )}
+                {/* 3. Mobile Number */}
+                <GlassInput
+                  type="tel"
+                  placeholder={language === 'hi' ? 'मोबाइल नंबर (उदा. 9876543210)' : 'Mobile Number (e.g. +91 98765 43210)'}
+                  leftIcon={phoneIcon}
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  autoComplete="tel"
+                  required
+                />
 
-            {/* Confirm Password (Register Mode Only) */}
-            {mode === 'register' && (
-              <GlassInput
-                isPassword={true}
-                placeholder={language === 'hi' ? 'पासवर्ड की पुष्टि करें' : 'Confirm password'}
-                leftIcon={lockIcon}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                autoComplete="new-password"
-                required
-              />
-            )}
+                {/* 4. Password */}
+                <GlassInput
+                  isPassword={true}
+                  placeholder={language === 'hi' ? 'पासवर्ड (न्यूनतम 8 वर्ण)' : 'Password (min. 8 characters)'}
+                  leftIcon={lockIcon}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  required
+                />
 
-            {/* Remember Me & Forgot Password (Login Mode Only) */}
-            {mode === 'login' && (
-              <div className="auth-controls-row">
-                <label className="auth-checkbox-label">
+                {/* 5. Confirm Password */}
+                <GlassInput
+                  isPassword={true}
+                  placeholder={language === 'hi' ? 'पासवर्ड की पुष्टि करें' : 'Confirm Password'}
+                  leftIcon={lockIcon}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
+                  required
+                />
+
+                {/* Terms of Service & Privacy Policy */}
+                <label className="auth-checkbox-label" style={{ fontSize: 12.5, lineHeight: 1.4, margin: '4px 0 8px 0' }}>
                   <input
                     type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
                   />
-                  <span>{language === 'hi' ? 'मुझे याद रखें' : 'Remember me'}</span>
+                  <span>
+                    {language === 'hi' ? (
+                      <>मैं <span style={{ color: 'var(--gold-primary)' }}>सेवा की शर्तों</span> और <span style={{ color: 'var(--gold-primary)' }}>गोपनीयता नीति</span> से सहमत हूँ</>
+                    ) : (
+                      <>I agree to the <span style={{ color: 'var(--gold-primary)' }}>Terms of Service</span> and <span style={{ color: 'var(--gold-primary)' }}>Privacy Policy</span></>
+                    )}
+                  </span>
                 </label>
 
-                <button
-                  type="button"
-                  className="auth-footer-link"
-                  style={{ background: 'none', border: 'none', padding: 0 }}
-                  onClick={() => handleModeSwitch('forgot')}
+                {/* Primary CTA: Create Account */}
+                <GlassButton
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  loading={isSubmitting}
+                  style={{ marginTop: 4 }}
                 >
-                  {language === 'hi' ? 'पासवर्ड भूल गए?' : 'Forgot Password?'}
-                </button>
-              </div>
+                  {language === 'hi' ? 'खाता बनाएं' : 'Create Account'}
+                </GlassButton>
+
+                {/* Divider: OR */}
+                <div className="auth-divider" style={{ margin: '14px 0' }}>
+                  <span>{language === 'hi' ? 'या' : 'OR'}</span>
+                </div>
+
+                {/* Continue with Google Button */}
+                <GlassButton
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  onClick={continueWithGoogle}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 10,
+                    width: '100%',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    color: '#f8fafc',
+                    fontWeight: 500,
+                  }}
+                >
+                  {googleIcon}
+                  <span>{language === 'hi' ? 'गूगल के साथ जारी रखें' : 'Continue with Google'}</span>
+                </GlassButton>
+              </>
             )}
 
-            {/* Terms of Service & Privacy Policy (Register Mode Only) */}
-            {mode === 'register' && (
-              <label className="auth-checkbox-label" style={{ fontSize: 12.5, lineHeight: 1.4 }}>
-                <input
-                  type="checkbox"
-                  checked={agreedToTerms}
-                  onChange={(e) => setAgreedToTerms(e.target.checked)}
+            {/* LOGIN MODE FIELDS */}
+            {mode === 'login' && (
+              <>
+                {/* Email or Mobile Number */}
+                <GlassInput
+                  type="text"
+                  placeholder={language === 'hi' ? 'ईमेल या मोबाइल नंबर' : 'Email or Mobile Number'}
+                  leftIcon={mailIcon}
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  autoComplete="username"
+                  required
                 />
-                <span>
-                  {language === 'hi' ? (
-                    <>मैं <span style={{ color: 'var(--gold-primary)' }}>सेवा की शर्तों</span> और <span style={{ color: 'var(--gold-primary)' }}>गोपनीयता नीति</span> से सहमत हूँ</>
-                  ) : (
-                    <>I agree to the <span style={{ color: 'var(--gold-primary)' }}>Terms of Service</span> and <span style={{ color: 'var(--gold-primary)' }}>Privacy Policy</span></>
-                  )}
-                </span>
-              </label>
+
+                {/* Password */}
+                <GlassInput
+                  isPassword={true}
+                  placeholder={language === 'hi' ? 'अपना पासवर्ड दर्ज करें' : 'Password'}
+                  leftIcon={lockIcon}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
+                />
+
+                {/* Remember Me & Forgot Password */}
+                <div className="auth-controls-row">
+                  <label className="auth-checkbox-label">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    <span>{language === 'hi' ? 'मुझे याद रखें' : 'Remember me'}</span>
+                  </label>
+
+                  <button
+                    type="button"
+                    className="auth-footer-link"
+                    style={{ background: 'none', border: 'none', padding: 0 }}
+                    onClick={() => handleModeSwitch('forgot')}
+                  >
+                    {language === 'hi' ? 'पासवर्ड भूल गए?' : 'Forgot Password?'}
+                  </button>
+                </div>
+
+                {/* Primary CTA: Log In */}
+                <GlassButton
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  loading={isSubmitting}
+                  style={{ marginTop: 4 }}
+                >
+                  {language === 'hi' ? 'लॉग इन करें' : 'Log In'}
+                </GlassButton>
+
+                {/* Divider: OR */}
+                <div className="auth-divider" style={{ margin: '14px 0' }}>
+                  <span>{language === 'hi' ? 'या' : 'OR'}</span>
+                </div>
+
+                {/* Continue with Google Button */}
+                <GlassButton
+                  type="button"
+                  variant="secondary"
+                  size="lg"
+                  onClick={continueWithGoogle}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 10,
+                    width: '100%',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    color: '#f8fafc',
+                    fontWeight: 500,
+                  }}
+                >
+                  {googleIcon}
+                  <span>{language === 'hi' ? 'गूगल के साथ जारी रखें' : 'Continue with Google'}</span>
+                </GlassButton>
+              </>
             )}
 
-            {/* Primary Luminous CTA Button - Warm gold, clear text, no '—' or '→' (Section 11) */}
-            <GlassButton
-              type="submit"
-              variant="primary"
-              size="lg"
-              loading={isSubmitting}
-              style={{ marginTop: 8 }}
-            >
-              {mode === 'login' && (language === 'hi' ? 'लॉग इन करें' : 'Log In')}
-              {mode === 'register' && (language === 'hi' ? 'खाता बनाएं' : 'Create Account')}
-              {mode === 'forgot' && (language === 'hi' ? 'जारी रखें' : 'Continue')}
-            </GlassButton>
+            {/* LINK GOOGLE ACCOUNT MODE */}
+            {mode === 'link_google' && (
+              <>
+                <GlassInput
+                  type="email"
+                  placeholder={language === 'hi' ? 'ईमेल पता' : 'Email Address'}
+                  leftIcon={mailIcon}
+                  value={email}
+                  disabled={true}
+                  required
+                />
 
-            {/* Back to Login Secondary for Forgot Password */}
+                <GlassInput
+                  isPassword={true}
+                  placeholder={language === 'hi' ? 'जनसेतु खाता पासवर्ड' : 'JanSetu Account Password'}
+                  leftIcon={lockIcon}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
+                />
+
+                <GlassButton
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  loading={isSubmitting}
+                  style={{ marginTop: 8 }}
+                >
+                  {language === 'hi' ? 'सत्यापित करें और खाता लिंक करें' : 'Verify & Link Google Account'}
+                </GlassButton>
+
+                <div className="auth-divider" style={{ margin: '14px 0' }}>
+                  <span>{language === 'hi' ? 'या' : 'OR'}</span>
+                </div>
+
+                <GlassButton
+                  type="button"
+                  variant="secondary"
+                  size="md"
+                  onClick={() => handleModeSwitch('login')}
+                >
+                  {language === 'hi' ? 'रद्द करें और लॉग इन करें' : 'Cancel & Return to Login'}
+                </GlassButton>
+              </>
+            )}
+
+            {/* FORGOT PASSWORD MODE */}
             {mode === 'forgot' && (
               <>
-                <div className="auth-divider">
+                <GlassInput
+                  type="text"
+                  placeholder={language === 'hi' ? 'ईमेल या मोबाइल नंबर' : 'Email or Mobile Number'}
+                  leftIcon={mailIcon}
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  autoComplete="username"
+                  required
+                />
+
+                <GlassButton
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  loading={isSubmitting}
+                  style={{ marginTop: 8 }}
+                >
+                  {language === 'hi' ? 'जारी रखें' : 'Continue'}
+                </GlassButton>
+
+                <div className="auth-divider" style={{ margin: '14px 0' }}>
                   <span>{language === 'hi' ? 'या' : 'OR'}</span>
                 </div>
 
@@ -376,8 +644,8 @@ export function Login() {
             )}
           </form>
 
-          {/* Footer Switching Prompt strictly following Section 12 semantics */}
-          <footer className="auth-footer">
+          {/* Footer Switching Prompt */}
+          <footer className="auth-footer" style={{ marginTop: 18 }}>
             {mode === 'login' && (
               <p>
                 {language === 'hi' ? 'खाता नहीं है? ' : "Don't have an account? "}

@@ -201,6 +201,124 @@ flutter test
 
 ---
 
+---
+
+## 🔐 Production Authentication Architecture
+
+JanSetu implements a hardened, dual-path production authentication system with PostgreSQL as the authoritative source of record:
+
+### Path A — Sovereign Normal Account
+- **Registration Fields**: Full Name, Email Address, Mobile Number, Password, Confirm Password.
+- **Email Validation**: General RFC-compliant regex supporting all legitimate domains (`@gmail.com`, `@icloud.com`, `@outlook.com`, `@yahoo.com`, `@company.com`, `@university.ac.in`). No hardcoded whitelist.
+- **Mobile Number Normalization**: Automatically normalizes Indian mobile numbers from formats like `+91 98765 43210`, `09876543210`, or `9876543210` to canonical E.164 `+91XXXXXXXXXX`.
+- **Database Enforced Uniqueness**: Unique constraints on `users.email`, `users.mobile_number`, and `users.phone`.
+- **Password Security**: Argon2 password hashing with cryptographically random salts; passwords are never logged, stored in plain text, or exposed to the client.
+- **Transactional Consistency**: Atomically creates Citizen, Identity, User, AuthIdentity, and AuthSession in a single atomic database transaction.
+
+### Path B — Real Google OAuth 2.0 / OpenID Connect
+- **Real Authorization Code Flow**: Redirects to `accounts.google.com/o/oauth2/v2/auth`.
+- **Identity Scopes**: Minimal requested scopes (`openid`, `email`, `profile`).
+- **CSRF Protection**: Time-limited cryptographic state nonce validated on callback.
+- **Stable Provider Identity**: Uses Google's permanent subject ID (`sub`), stored in `auth_identities(provider, provider_subject)`.
+- **Safe Account Linking Flow**: If a user already created a password account with `email@example.com` and later clicks *Continue with Google*, JanSetu detects the collision and requires password authentication to safely link the Google identity without duplicating accounts.
+- **Onboarding Route**: Google users are directed to Onboarding to provide their required sovereign mobile number.
+
+---
+
+## 🔑 Google Cloud Console OAuth 2.0 Setup Guide
+
+To configure real Google Sign-In for JanSetu:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new project or select an existing project (e.g., `JanSetu-Production`).
+3. Navigate to **APIs & Services** > **OAuth consent screen**:
+   - User Type: **External**
+   - App Name: `JanSetu`
+   - User Support Email: your administrative email
+   - Scopes: Add `.../auth/userinfo.email`, `.../auth/userinfo.profile`, `openid`
+4. Navigate to **APIs & Services** > **Credentials**:
+   - Click **Create Credentials** > **OAuth client ID**
+   - Application type: **Web application**
+   - Name: `JanSetu Web Client`
+   - **Authorized redirect URIs**:
+     - Local Development: `http://localhost:8000/api/auth/google/callback` and `http://localhost:8000/auth/google/callback`
+     - Production: `https://api.jansetu.in/api/auth/google/callback` and `https://api.jansetu.in/auth/google/callback`
+5. Click **Create** and securely copy the generated **Client ID** and **Client Secret**.
+6. Store them in AWS Secrets Manager (Production) or `.env` (Local):
+   ```env
+   GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=your-client-secret
+   GOOGLE_REDIRECT_URI=http://localhost:8000/api/auth/google/callback
+   ```
+
+---
+
+## 🚀 AWS Production Deployment Handoff
+
+```text
+               INTERNET
+                  │
+                  ▼
+        Amazon CloudFront CDN (HTTPS)
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+  Amazon S3 Bucket    Application Load Balancer (ALB)
+  (React PWA Static)        │ (HTTPS Target Group)
+                            ▼
+                     Amazon ECS Fargate
+                    (FastAPI Containers)
+                            │
+        ┌───────────────────┼───────────────────┐
+        ▼                   ▼                   ▼
+ Amazon RDS PostgreSQL   Amazon S3 Bucket   AWS Secrets Manager
+ (Authoritative DB)     (Encrypted Vault)   (Credentials & Keys)
+```
+
+### Production Environment Variables (AWS Secrets Manager)
+```env
+DATABASE_URL=postgresql+asyncpg://<db_user>:<db_pass>@<rds_endpoint>:5432/jansetu_db
+SESSION_SECRET=<cryptographically-random-64-byte-key>
+SECRET_KEY=<cryptographically-random-64-byte-key>
+GEMINI_API_KEY=<production-google-gemini-key>
+GOOGLE_CLIENT_ID=<google-client-id>
+GOOGLE_CLIENT_SECRET=<google-client-secret>
+GOOGLE_REDIRECT_URI=https://api.jansetu.in/api/auth/google/callback
+AWS_REGION=ap-south-1
+S3_BUCKET=jansetu-citizen-evidence-ap-south-1
+CORS_ORIGINS=https://jansetu.in,https://app.jansetu.in
+```
+
+### Step-by-Step Deployment Commands
+
+```bash
+# 1. Build and verify frontend production bundle
+cd frontend
+npm run build
+
+# 2. Authenticate Docker with Amazon ECR
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.ap-south-1.amazonaws.com
+
+# 3. Build & tag Docker backend container
+cd ../backend
+docker build -t jansetu-backend:latest .
+docker tag jansetu-backend:latest <aws_account_id>.dkr.ecr.ap-south-1.amazonaws.com/jansetu-backend:latest
+docker push <aws_account_id>.dkr.ecr.ap-south-1.amazonaws.com/jansetu-backend:latest
+
+# 4. Run Alembic migrations against AWS RDS PostgreSQL
+alembic upgrade head
+
+# 5. Deploy ECS Task & Service
+aws ecs update-service --cluster jansetu-production --service jansetu-backend-service --force-new-deployment
+
+# 6. Deploy React PWA build to S3 & invalidate CloudFront cache
+cd ../frontend
+aws s3 sync dist/ s3://jansetu-frontend-web/ --delete
+aws cloudfront create-invalidation --distribution-id <DISTRIBUTION_ID> --paths "/*"
+```
+
+---
+
 ## 👥 Hackathon Team & Author
 
 - **Author**: Samit Shukla
@@ -212,3 +330,4 @@ flutter test
 
 ## 📜 License
 This project is developed for the **Bit N Build 2026 State Round Hackathon**.
+

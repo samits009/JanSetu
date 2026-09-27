@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../core/localization/app_localizations.dart';
 import '../core/repositories/auth_repository.dart';
 import '../core/theme/tokens.dart';
+import '../shared/widgets/jansetu_brand.dart';
 
 // ─── Auth Mode ────────────────────────────────────────────────────────────────
 enum _AuthMode { login, register, forgotPassword }
@@ -610,57 +611,10 @@ class _JanSetuLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Bridge / arch icon
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                JanSetuTokens.goldPrimary.withOpacity(0.20),
-                JanSetuTokens.goldPrimary.withOpacity(0.05),
-              ],
-            ),
-            border: Border.all(
-              color: JanSetuTokens.goldPrimary.withOpacity(0.35),
-            ),
-          ),
-          child: const Icon(
-            Icons.account_balance_rounded,
-            color: JanSetuTokens.goldPrimary,
-            size: 24,
-          ),
-        ),
-        const SizedBox(height: 10),
-        // JanSetu wordmark
-        ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-            colors: [JanSetuTokens.goldLight, JanSetuTokens.goldPrimary],
-          ).createShader(bounds),
-          child: const Text(
-            'JanSetu',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 0.5,
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'DISCOVER. VERIFY. ACT. PROTECT.',
-          style: TextStyle(
-            color: JanSetuTokens.goldPrimary.withOpacity(0.65),
-            fontSize: 9,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1.5,
-          ),
-        ),
-      ],
+    return const JanSetuBrand(
+      variant: JanSetuBrandVariant.full,
+      size: JanSetuBrandSize.lg,
+      showTagline: true,
     );
   }
 }

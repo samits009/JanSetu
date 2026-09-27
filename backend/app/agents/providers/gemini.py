@@ -38,7 +38,7 @@ class GeminiProvider(AIProvider):
         fallback: Optional[AIProvider] = None,
     ):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY") or os.environ.get("AI_API_KEY")
-        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+        self.model_name = model or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
         self.max_retries = max_retries
         self.timeout_seconds = timeout_seconds
         self.fallback = fallback

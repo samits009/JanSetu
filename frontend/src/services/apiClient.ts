@@ -67,7 +67,7 @@ async function handleResponse<T>(response: Response): Promise<T> {
   }
 
   throw new ApiError(
-    errorData.message || response.statusText,
+    errorData.detail || errorData.message || response.statusText,
     errorData.error_code || 'HTTP_ERROR',
     response.status,
     errorData.retryable ?? response.status >= 500
