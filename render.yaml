@@ -1,0 +1,35 @@
+services:
+  # Backend - FastAPI on Cloud Run via Docker
+  - type: web
+    name: jansetu-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    region: singapore
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-1.5-flash
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: DEV_MOCK_ADMIN_AUTH
+        value: false
+      - key: DEV_DEMO_AUTH
+        value: false
+      - key: PYTHONUNBUFFERED
+        value: "1"
