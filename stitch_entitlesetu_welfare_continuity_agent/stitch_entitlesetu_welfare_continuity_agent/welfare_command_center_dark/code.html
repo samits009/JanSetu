@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>JanSetu</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;background-color:#0a0e17;font-family:'Noto Sans',sans-serif;color:#f8fafc;}.pb-safe{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 0.5rem);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface":"#0a0e17","surface-container":"#111827","surface-container-high":"#1e293b","surface-container-low":"#0f172a","surface-container-lowest":"#0a0e17","border-subtle":"#1f293d","border-strong":"#334155","on-surface":"#f8fafc","on-surface-variant":"#94a3b8","on-surface-muted":"#64748b","accent-blue":"#38bdf8","accent-primary":"#60a5fa","accent-green":"#34d399","accent-amber":"#fbbf24","accent-rose":"#f87171"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"container-padding-tablet":"1.5rem","container-padding-desktop":"2rem","space-2xl":"3rem","space-lg":"1.5rem","container-padding-mobile":"1rem","space-sm":"0.75rem","touch-min":"3rem","space-md":"1rem","space-2xs":"0.25rem","space-xl":"2rem","space-xs":"0.5rem"},"fontFamily":{"label-md":["Noto Sans"],"label-lg":["Noto Sans"],"body-md":["Noto Sans"],"display-lg":["Noto Sans"],"body-lg":["Noto Sans"],"headline-lg":["Noto Sans"],"label-sm":["Noto Sans"],"headline-md":["Noto Sans"],"display-lg-mobile":["Noto Sans"],"title-lg":["Noto Sans"],"headline-lg-mobile":["Noto Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0.01em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"title-lg":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.005em","fontWeight":"600"}]}}}}</script></head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-[#0a0e17]/90 backdrop-blur-xl border-b border-border-subtle shadow-[0_4px_20px_rgba(0,0,0,0.5)]"><div class="h-20 px-container-padding-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-[#1e293b] text-accent-blue flex items-center justify-center border border-border-strong shadow-[0_2px_8px_rgba(0,0,0,0.4)]"><span class="material-symbols-outlined text-[24px]">account_balance</span></div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-title-lg text-title-lg font-bold text-on-surface tracking-tight">JanSetu</span><span class="px-1.5 py-0.5 rounded-full bg-blue-500/20 text-accent-blue border border-blue-500/30 font-label-sm text-label-sm font-semibold">DPI</span></div><span class="font-label-sm text-label-sm text-on-surface-variant line-clamp-1">भारत सरकार • Public Infrastructure</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="भाषा बदलें / Change Language" class="min-h-[44px] px-2.5 py-1 rounded-full bg-surface-container-high border border-border-strong flex items-center gap-1 text-on-surface font-label-md text-label-md hover:bg-surface-container"><span class="material-symbols-outlined text-[18px] text-accent-blue">translate</span><span class="">हिंदी</span><span class="text-on-surface-variant text-[11px]">/ EN</span></button><div class="w-8 h-8 rounded-full bg-surface-container-high border border-border-strong flex items-center justify-center text-on-surface"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-container-padding-mobile pt-20 pb-36 bg-surface"><div class="flex flex-col w-full gap-space-md mt-3">
+<!-- 1. Citizen Identity & Shield Card -->
+<div class="w-full bg-[#111827] border border-border-subtle rounded-xl p-space-md shadow-lg relative overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-blue-500/10 pointer-events-none blur-xl"></div>
+<div class="flex items-start justify-between gap-space-xs z-10">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover ring-2 ring-border-strong" data-alt="Dignified warm portrait photograph of Ramesh Kumar, a 32-year-old Indian migrant construction laborer wearing a clean ochre collared shirt, friendly and confident expression, soft natural sunlight, cinematic realistic photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3AAg7QUnix5gkHeVfris2EFQmvZGWKmljc4qr841WvkngNIo_bQUGfQoFYlCf_ypdgYq39il7IvuxRY9COcGWPY5qIS5VFYK1dTvsEssa1HkM4CfrDEcGag6dIUcXApcQVUi-K08019GbUmJOcpORppWKrw4kJf4CwG8Cylo3ErIRpkdXhF1bqOFOTi5NJzWaDMCAgMIsVAUw2oGK0zmihMPn_V-hRXwj1GORe8dQk22YofmBfryo"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[#0a0e17] text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<h1 class="font-headline-md text-headline-md text-on-surface truncate font-bold">Ramesh Kumar</h1>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">(रमेश कुमार)</span>
+</div>
+<span class="font-label-md text-label-md text-accent-blue truncate">निर्माण श्रमिक • Construction Worker</span>
+</div>
+</div>
+<!-- Live Shield Status Badge -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+</span>
+<span class="font-label-sm text-label-sm font-bold text-emerald-300">सुरक्षा सक्रिय</span>
+</div>
+</div>
+<!-- Metadata pill strip -->
+<div class="grid grid-cols-2 gap-space-xs pt-1 z-10">
+<div class="flex items-center gap-space-2xs bg-[#1e293b]/70 border border-border-subtle px-2.5 py-2 rounded-lg text-on-surface">
+<span class="material-symbols-outlined text-accent-blue text-[18px]">near_me</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">गोरखपुर (UP) → दिल्ली NCR</span>
+</div>
+<div class="flex items-center gap-space-2xs bg-[#1e293b]/70 border border-border-subtle px-2.5 py-2 rounded-lg text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">family_restroom</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant truncate">4 सदस्य • ₹12,000/माह</span>
+</div>
+</div>
+</div>
+<!-- 2. Impact Headline & Summary Widget -->
+<div class="w-full bg-gradient-to-br from-[#0f1d3a] via-[#111f44] to-[#142654] border border-blue-500/30 text-on-surface rounded-xl p-space-md shadow-xl flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-blue-300 font-bold">Welfare Command Center</span>
+<span class="material-symbols-outlined text-blue-300 text-[22px]">auto_awesome</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-white font-bold tracking-tight">Discover. Apply. Protect.</h2>
+<p class="font-body-md text-body-md text-slate-300 mt-1">JanSetu continuously helps your family secure and maintain all entitled welfare benefits.</p>
+</div>
+<!-- Potential Value Display -->
+<div class="flex items-baseline justify-between pt-space-xs bg-[#0a0f24]/70 border border-blue-400/20 p-space-sm rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-slate-300">कुल संभावित लाभ • Annual Value Potential</span>
+<div class="flex items-center gap-1.5">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-white">₹48,500</span>
+<span class="font-label-md text-label-md text-amber-300 font-medium">/ वर्ष (yr)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 rounded-full bg-blue-600/80 border border-blue-400/30 text-white font-label-md text-label-md font-bold shadow-sm">
+          12 योजनाएं
+        </span>
+</div>
+</div>
+</div>
+<!-- Attention Banner -->
+<div class="w-full bg-[#1e293b]/80 border border-rose-500/30 rounded-xl p-space-sm flex items-center gap-space-sm shadow-md">
+<div class="w-9 h-9 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-label-lg text-label-lg text-rose-200 font-bold">7 Actions Recommended</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Critical updates to protect family welfare rights</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+<!-- 3. Autonomous AI Agent Recommendation Box (WOW Highlight) -->
+<div class="w-full bg-[#111827] border border-border-strong rounded-xl p-space-md shadow-lg flex flex-col gap-space-sm relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-accent-blue text-[22px]">smart_toy</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">AI Agent Insight</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-label-sm text-label-sm font-semibold">Ready to Act</span>
+</div>
+<!-- Agent Hindi Reasoning Box -->
+<div class="bg-[#1e293b]/70 border border-border-subtle rounded-lg p-space-sm flex flex-col gap-1.5">
+<p class="font-body-md text-body-md text-slate-200 leading-relaxed">
+        “रमेश जी, दिल्ली आने से आपका <strong class="text-emerald-400 font-semibold">राशन सुरक्षित</strong> है, पर <strong class="text-rose-400 font-semibold">BOCW बोर्ड रिन्यूअल 12 दिन में</strong> खत्म हो रहा है। हमने नवीनीकरण आवेदन तैयार कर लिया है।”
+      </p>
+<span class="font-label-sm text-label-sm text-on-surface-muted">Autonomous audit based on latest Delhi interstate portability records</span>
+</div>
+<!-- Autonomous Action Buttons -->
+<div class="flex flex-col gap-space-xs pt-1">
+<button class="w-full min-h-[48px] bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-space-md py-space-xs font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(37,99,235,0.35)] active:scale-95 transition-all" id="agent-execute-btn">
+<span class="material-symbols-outlined text-amber-300 text-[20px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="">Let JanSetu Handle It (जनसेतु को सौंपें)</span>
+</button>
+<button class="w-full min-h-[48px] bg-[#1e293b] hover:bg-[#283548] border border-border-strong text-slate-200 rounded-xl px-space-md py-space-xs font-label-md text-label-md font-semibold flex items-center justify-center gap-2 active:scale-95 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-slate-400">visibility</span>
+<span class="">Review Form First (पहले जांचें)</span>
+</button>
+</div>
+</div>
+<!-- Section Title -->
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-title-lg text-title-lg text-on-surface font-bold">Welfare Protection Status</span>
+<span class="font-label-sm text-label-sm text-accent-blue font-semibold">5 Categories</span>
+</div>
+<!-- 4. Visual Segmented Status System (Card 1: Active) -->
+<div class="w-full bg-[#111827] border border-emerald-500/30 rounded-xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-emerald-400 shrink-0 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">4 Active</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 font-label-sm text-label-sm font-bold">सुरक्षित • Secured</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Benefits currently protected &amp; uninterrupted</span>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#1e293b]/70 border border-border-subtle">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]">rice_bowl</span>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md text-slate-200 truncate font-semibold">राशन कार्ड (ONORC Portability)</span>
+<span class="font-label-sm text-label-sm text-on-surface-muted">FPS Fair Price Shop: Shakarpur, Delhi</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-[#1e293b]/70 border border-border-subtle">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]">account_balance</span>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md text-slate-200 truncate font-semibold">जन धन बैंक सुरक्षा (PMJDY &amp; PMSBY)</span>
+<span class="font-label-sm text-label-sm text-on-surface-muted">DBT Bank Seeded: Active</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-emerald-400 text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Action Required -->
+<div class="w-full bg-[#111827] border border-amber-500/30 rounded-xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-amber-400 animate-pulse shrink-0 shadow-[0_0_8px_rgba(251,191,36,0.6)]"></div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">3 Action Required</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-amber-950/70 border border-amber-500/40 text-amber-300 font-label-sm text-label-sm font-bold">कार्रवाई जरूरी</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Renewal / migration registration needed immediately</span>
+<div class="p-3 rounded-lg bg-[#1e293b]/70 border border-border-subtle flex flex-col gap-1.5 mt-1">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-slate-200 font-bold">BOCW दिल्ली श्रमिक कार्ड नवीनीकरण</span>
+<span class="font-body-md text-body-md text-on-surface-variant">दिल्ली निर्माण श्रमिक कल्याण बोर्ड (Delhi Board)</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-rose-950/80 border border-rose-500/40 text-rose-300 font-label-sm text-label-sm font-bold">12 दिन शेष</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-amber-300 font-semibold">Value: ₹10,000 वार्षिक सुरक्षा</span>
+<button class="min-h-[44px] px-3.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-label-sm text-label-sm font-bold flex items-center gap-1 active:scale-95 shadow-sm">
+<span class="">Renew Now</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: New Opportunities -->
+<div class="w-full bg-[#111827] border border-blue-500/30 rounded-xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-blue-400 shrink-0 shadow-[0_0_8px_rgba(96,165,250,0.6)]"></div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">2 New Opportunities</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-label-sm text-label-sm font-bold">नई योजनाएं</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Unlocked by your verified relocation to Delhi NCR</span>
+<div class="p-3 rounded-lg bg-[#1e293b]/70 border border-border-subtle flex items-center justify-between mt-1">
+<div class="flex flex-col min-w-0 flex-1 pr-2">
+<span class="font-label-md text-label-md text-slate-200 font-bold truncate">दिल्ली मजदूर छात्रवृत्ति योजना</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">दोनों बच्चों की स्कूली सहायता: ₹12,000/वर्ष</span>
+</div>
+<button class="min-h-[44px] px-3.5 py-1 bg-slate-100 hover:bg-white text-slate-950 rounded-lg font-label-sm text-label-sm font-bold shrink-0 active:scale-95 shadow-sm">
+        Apply Now
+      </button>
+</div>
+</div>
+<!-- Card 4: At Risk -->
+<div class="w-full bg-[#111827] border border-rose-500/30 rounded-xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-rose-500 shrink-0 shadow-[0_0_8px_rgba(244,63,94,0.6)]"></div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">1 At Risk</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-rose-950/70 border border-rose-500/40 text-rose-300 font-label-sm text-label-sm font-bold">खतरे में • Urgent</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Potential subsidy loss detected due to state boundary change</span>
+<div class="p-3 rounded-lg bg-[#1e293b]/70 border border-border-subtle flex flex-col gap-1 mt-1">
+<div class="flex items-start justify-between">
+<span class="font-label-md text-label-md text-slate-200 font-bold">UP निर्माण श्रमिक साइकिल सहायता</span>
+<span class="font-label-sm text-label-sm text-rose-400 font-bold">Portability Inactive</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-[13px]">
+        State shift to Delhi requires manual cross-state transfer to avoid cancellation of pending UP aid.
+      </p>
+<div class="pt-1">
+<button class="min-h-[44px] w-full px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span class="">Protect Benefit (सुरक्षा सुरक्षित करें)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5: Need Documents -->
+<div class="w-full bg-[#111827] border border-purple-500/30 rounded-xl p-space-md shadow-md flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-3 h-3 rounded-full bg-purple-400 shrink-0 shadow-[0_0_8px_rgba(192,132,252,0.6)]"></div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">2 Need Documents</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-purple-950/70 border border-purple-500/40 text-purple-300 font-label-sm text-label-sm font-bold">प्रमाण बाकी</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Missing 1 proof to unlock ₹15,000 emergency assistance</span>
+<div class="p-3 rounded-lg bg-[#1e293b]/70 border border-border-subtle flex items-center justify-between mt-1">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-purple-400 text-[22px]">document_scanner</span>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md text-slate-200 truncate font-semibold">दिल्ली स्थानीय निवास पर्ची</span>
+<span class="font-label-sm text-label-sm text-on-surface-muted">Site Contractor Certificate / Rent Slip</span>
+</div>
+</div>
+<button class="min-h-[44px] px-3.5 py-1 bg-[#1e293b] hover:bg-[#29374d] border border-border-strong text-slate-200 rounded-lg font-label-sm text-label-sm font-bold flex items-center gap-1 shrink-0 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-purple-300">upload_file</span>
+<span class="">Upload</span>
+</button>
+</div>
+</div>
+<!-- 5. Quick Voice Action Interaction Card -->
+<div class="w-full bg-[#111827] border border-border-subtle rounded-xl p-space-md shadow-md flex flex-col gap-space-xs mb-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">बोलकर तुरंत पूछें • Voice Command</span>
+<span class="material-symbols-outlined text-accent-blue text-[18px]">record_voice_over</span>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-[#1e293b]/70 border border-border-subtle">
+<!-- Animated Waveform Simulation -->
+<div class="flex items-center gap-1 h-8 px-2 bg-[#0a0e17]/80 rounded-md border border-border-subtle shrink-0">
+<span class="w-1 bg-accent-blue rounded-full animate-pulse h-3"></span>
+<span class="w-1 bg-accent-blue rounded-full animate-pulse h-6"></span>
+<span class="w-1 bg-accent-blue rounded-full animate-pulse h-4"></span>
+<span class="w-1 bg-accent-blue rounded-full animate-pulse h-7"></span>
+<span class="w-1 bg-accent-blue rounded-full animate-pulse h-2"></span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-label-sm text-label-sm text-on-surface-muted">Or say in Hindi:</span>
+<span class="font-label-md text-label-md text-slate-200 font-semibold truncate">“मेरी कौन सी योजना बंद हो सकती है?”</span>
+</div>
+<button aria-label="Start Voice Query" class="min-h-[44px] min-w-[44px] rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(37,99,235,0.4)] active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Local micro-interaction for AI agent execution confirmation
+  const executeBtn = document.getElementById('agent-execute-btn');
+  if (executeBtn) {
+    executeBtn.addEventListener('click', function() {
+      const originalHTML = this.innerHTML;
+      this.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>आवेदन भेजा जा रहा है... (Submitting)</span>';
+      this.classList.add('opacity-90');
+      
+      setTimeout(() => {
+        this.innerHTML = '<span class="material-symbols-outlined text-amber-300 text-[20px]">check_circle</span><span>सफलतापूर्वक दर्ज! (Assigned to Agent)</span>';
+        setTimeout(() => {
+          this.innerHTML = originalHTML;
+          this.classList.remove('opacity-90');
+        }, 3000);
+      }, 1200);
+    });
+  }
+</script></main><div class="fixed bottom-20 inset-x-0 z-40 px-container-padding-mobile pointer-events-none flex justify-center pb-2"><button aria-label="बोलकर पूछें / Ask Welfare Agent" class="pointer-events-auto min-h-[48px] px- space-md py-space-xs px-5 bg-gradient-to-r from-slate-900 to-[#111827] text-white border border-emerald-500/40 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(16,185,129,0.25)] flex items-center gap-space-xs active:scale-95 transition-transform duration-150"><span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span></span><span class="material-symbols-outlined text-[20px] text-emerald-400">mic</span><span class="font-label-lg text-label-lg font-bold tracking-normal text-white">बोलकर पूछें <span class="font-body-md text-body-md text-slate-300 font-normal">/ Ask AI</span></span></button></div><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#0a0e17]/95 backdrop-blur-xl border-t border-border-subtle shadow-[0_-4px_20px_rgba(0,0,0,0.7)]" data-active-classes="text-accent-blue font-bold"><div class="flex justify-around items-center h-16 px-1"><a aria-current="page" class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] transition-colors text-accent-blue font-bold" data-path="command-center" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-label-sm leading-none mt-1">होम</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-on-surface-variant hover:text-slate-200 transition-colors" data-path="survival-map-and-entitlements" href="#"><span class="material-symbols-outlined text-[22px]">shield_with_heart</span><span class="font-label-sm text-label-sm leading-none mt-1">योजनाएं</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-on-surface-variant hover:text-slate-200 transition-colors" data-path="evidence-graph-and-documents" href="#"><span class="material-symbols-outlined text-[22px]">folder_shared</span><span class="font-label-sm text-label-sm leading-none mt-1">दस्तावेज़</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-on-surface-variant hover:text-slate-200 transition-colors" data-path="autopilot-center" href="#"><span class="material-symbols-outlined text-[22px]">sync_saved_locally</span><span class="font-label-sm text-label-sm leading-none mt-1">आवेदन</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-on-surface-variant hover:text-slate-200 transition-colors" data-path="trust-center-and-profile" href="#"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-sm text-label-sm leading-none mt-1">प्रोफ़ाइल</span></a></div></nav>
+</body></html>

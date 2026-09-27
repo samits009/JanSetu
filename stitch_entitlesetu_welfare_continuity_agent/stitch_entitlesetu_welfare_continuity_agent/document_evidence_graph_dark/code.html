@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>EntitleSetu</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;background-color:#0a0e17;color:#cbd5e1;font-family:'Noto Sans',sans-serif;}.pb-safe{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 0.5rem);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "background": "#0a0e17",
+          "surface": "#0a0e17",
+          "surface-container-lowest": "#060911",
+          "surface-container-low": "#0f172a",
+          "surface-container": "#111827",
+          "surface-container-high": "#1e293b",
+          "surface-container-highest": "#334155",
+          "on-surface": "#f8fafc",
+          "on-surface-variant": "#94a3b8",
+          "outline": "#334155",
+          "outline-variant": "#1f293d",
+          "primary": "#38bdf8",
+          "primary-container": "#0284c7",
+          "on-primary": "#001a42",
+          "secondary": "#38bdf8",
+          "secondary-container": "#0369a1",
+          "on-secondary": "#041b2f",
+          "tertiary": "#10b981",
+          "tertiary-container": "#065f46",
+          "tertiary-fixed": "#34d399",
+          "on-tertiary-fixed": "#022c22",
+          "on-tertiary-container": "#34d399",
+          "error": "#f87171",
+          "error-container": "#450a0a",
+          "on-error": "#ffffff"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "container-padding-mobile": "1rem",
+          "space-2xs": "0.25rem",
+          "space-xs": "0.5rem",
+          "space-sm": "0.75rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "space-xl": "2rem"
+        }
+      }
+    }
+  };
+</script></head><body class="bg-[#0a0e17] text-[#cbd5e1] font-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-[#0a0e17]/90 backdrop-blur-xl border-b border-[#1f293d] shadow-[0_4px_20px_rgba(0,0,0,0.5)]"><div class="h-16 px-4 flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155] text-sky-400 flex items-center justify-center shadow-inner"><span class="material-symbols-outlined text-[24px]">account_balance</span></div><div class="flex flex-col"><div class="flex items-center gap-1.5"><span class="text-[17px] font-bold text-[#f8fafc] tracking-tight">JanSetu</span><span class="px-1.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-[10px] font-semibold border border-sky-500/30">DPI</span></div><span class="text-[11px] text-[#94a3b8] line-clamp-1">भारत सरकार • Public Infrastructure</span></div></div><div class="flex items-center gap-2"><button aria-label="भाषा बदलें / Change Language" class="min-h-[40px] px-3 py-1 rounded-full bg-[#111827] border border-[#1f293d] flex items-center gap-1.5 text-[#f8fafc] text-xs font-semibold shadow-sm hover:border-[#334155] transition-colors"><span class="material-symbols-outlined text-[16px] text-sky-400">translate</span><span>हिंदी</span><span class="text-[#94a3b8] text-[11px]">/ EN</span></button><div class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center text-slate-200"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-4 pt-20 pb-36 bg-[#0a0e17]"><div class="flex flex-col w-full space-y-3.5">
+<div class="flex flex-col bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2.5">
+<div class="flex items-center justify-between flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-300 text-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-sky-400">account_tree</span>
+        स्वचालित साक्ष्य पुनर्चक्रण • DPI Auto-Bridge
+      </span>
+<span class="flex items-center gap-1.5 text-emerald-400 text-[11px] font-bold bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+        Zero Duplicate Form-filling
+      </span>
+</div>
+<h2 class="text-[22px] font-bold text-[#f8fafc] tracking-tight leading-snug">
+      Your Document Evidence Graph<br/>
+<span class="text-base text-[#94a3b8] font-normal">(आपके प्रमाण और दस्तावेज़)</span>
+</h2>
+<p class="text-sm text-[#cbd5e1] leading-relaxed">
+      Smart reuse of verified credentials across 12 welfare schemes. Upload once, verify everywhere.
+    </p>
+<div class="mt-1 p-3 bg-[#1e293b]/70 border border-[#334155] rounded-xl flex items-center justify-between gap-2">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-sky-500/20 border border-sky-400/40 text-sky-300 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-[#f8fafc]">4 Verified Documents</span>
+<span class="text-xs text-[#94a3b8]">14 scheme requirements cleared</span>
+</div>
+</div>
+<div class="text-right">
+<span class="px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold shadow-sm">
+          93% Autopilot Ready
+        </span>
+</div>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-400 text-[20px]">hub</span>
+<span class="text-base font-bold text-[#f8fafc]">Evidence Pipeline</span>
+</div>
+<span class="text-xs text-[#94a3b8] font-medium">Autonomous Matching</span>
+</div>
+<div class="p-3 bg-[#0f172a] border border-[#1f293d] rounded-xl">
+<div class="grid grid-cols-4 gap-1 text-center items-center">
+<div class="flex flex-col items-center">
+<span class="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400/50 text-sky-300 flex items-center justify-center shadow-[0_0_10px_rgba(56,189,248,0.25)]">
+<span class="material-symbols-outlined text-[16px]">description</span>
+</span>
+<span class="text-[10px] font-bold text-[#f8fafc] mt-1 tracking-wider">DOCUMENTS</span>
+<span class="text-[11px] text-sky-400 font-semibold">4 Uploaded</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-400/50 text-indigo-300 flex items-center justify-center shadow-[0_0_10px_rgba(129,140,248,0.25)]">
+<span class="material-symbols-outlined text-[16px]">fingerprint</span>
+</span>
+<span class="text-[10px] font-bold text-[#f8fafc] mt-1 tracking-wider">EVIDENCE</span>
+<span class="text-[11px] text-[#94a3b8]">19 Facts</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 flex items-center justify-center shadow-[0_0_10px_rgba(34,211,238,0.25)]">
+<span class="material-symbols-outlined text-[16px]">task_alt</span>
+</span>
+<span class="text-[10px] font-bold text-[#f8fafc] mt-1 tracking-wider">CRITERIA</span>
+<span class="text-[11px] text-[#94a3b8]">14 Satisfied</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/60 text-emerald-300 flex items-center justify-center shadow-[0_0_10px_rgba(52,211,153,0.35)]">
+<span class="material-symbols-outlined text-[16px]">currency_rupee</span>
+</span>
+<span class="text-[10px] font-bold text-[#f8fafc] mt-1 tracking-wider">BENEFITS</span>
+<span class="text-[11px] text-emerald-400 font-bold">12 Schemes</span>
+</div>
+</div>
+<div class="relative w-full h-2 bg-[#1e293b] rounded-full mt-3.5 overflow-hidden">
+<div class="absolute left-0 top-0 h-full bg-gradient-to-r from-sky-500 via-cyan-400 to-emerald-400 w-11/12 rounded-full shadow-[0_0_12px_rgba(56,189,248,0.6)]"></div>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<span class="text-base font-bold text-[#f8fafc]">Verified Credentials (सत्यापित रिकॉर्ड)</span>
+<span class="text-xs text-sky-400 font-semibold">4 Active • 1 Needed</span>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155] flex items-center justify-center text-sky-400 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">badge</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#f8fafc]">Aadhaar Card</h3>
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+</div>
+<p class="text-xs text-[#94a3b8] font-medium">आधार कार्ड • UIDAI Verified ✓</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-[#1e293b] border border-[#334155] text-sky-300 text-xs font-semibold">
+          UIDAI E-KYC
+        </span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-[#0f172a] border border-[#1f293d] p-2.5 rounded-lg">
+<span class="text-[11px] text-[#94a3b8] block">Identified Citizen</span>
+<span class="text-xs font-semibold text-[#f8fafc]">Ramesh Kumar (32y)</span>
+</div>
+<div class="bg-[#0f172a] border border-[#1f293d] p-2.5 rounded-lg">
+<span class="text-[11px] text-[#94a3b8] block">Permanent Domicile</span>
+<span class="text-xs font-semibold text-[#f8fafc] truncate block">Gorakhpur, UP</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-0.5">
+<span class="px-2 py-0.5 rounded-md bg-[#1e293b] border border-[#334155] text-[#94a3b8] text-xs">DOB: 14-Aug-1992</span>
+<span class="px-2 py-0.5 rounded-md bg-[#1e293b] border border-[#334155] text-[#94a3b8] text-xs">Biometrics Active</span>
+<span class="px-2 py-0.5 rounded-md bg-[#1e293b] border border-[#334155] text-[#94a3b8] text-xs">Mobile Linked</span>
+</div>
+<div class="pt-2 flex items-center justify-between border-t border-[#1f293d] text-sky-400 text-xs font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sync_alt</span>
+          Used across 5 active schemes
+        </span>
+<span class="text-[11px] text-[#94a3b8]">DigiLocker #9802</span>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155] flex items-center justify-center text-sky-400 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">construction</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#f8fafc]">UP BOCW Worker Certificate</h3>
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+</div>
+<p class="text-xs text-[#94a3b8] font-medium">श्रमिक प्रमाणपत्र • श्रम विभाग</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          Valid till 2026
+        </span>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-0.5">
+<span class="px-2.5 py-1 rounded-md bg-[#1e293b] border border-[#334155] text-[#cbd5e1] text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check_circle</span>
+          Worker Identity Proven
+        </span>
+<span class="px-2.5 py-1 rounded-md bg-[#1e293b] border border-[#334155] text-[#cbd5e1] text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check_circle</span>
+          Construction Category
+        </span>
+<span class="px-2.5 py-1 rounded-md bg-[#1e293b] border border-[#334155] text-[#cbd5e1] text-xs font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check_circle</span>
+          Skill Grade: Mason (राजमिस्त्री)
+        </span>
+</div>
+<div class="p-2.5 bg-[#0f172a] border border-[#1f293d] rounded-lg flex items-center justify-between">
+<span class="text-xs text-[#94a3b8] leading-tight">Applied to: BOCW Pension, Accident Insurance, Delhi Toolkit Allowance, Shramik Card</span>
+<span class="text-xs font-bold text-sky-400 shrink-0 ml-2">4 Apps</span>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155] flex items-center justify-center text-sky-400 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">local_mall</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#f8fafc]">NFSA Ration Card</h3>
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+</div>
+<p class="text-xs text-[#94a3b8] font-medium">खाद्य एवं रसद विभाग • राष्ट्रीय खाद्य सुरक्षा</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-sky-950/50 border border-sky-500/30 text-sky-300 text-xs font-semibold">
+          ONORC Active
+        </span>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-0.5 text-center">
+<div class="bg-[#0f172a] border border-[#1f293d] p-2 rounded-lg">
+<span class="text-[11px] text-[#94a3b8] block">Category</span>
+<span class="text-xs font-bold text-[#f8fafc]">BPL / PHH</span>
+</div>
+<div class="bg-[#0f172a] border border-[#1f293d] p-2 rounded-lg">
+<span class="text-[11px] text-[#94a3b8] block">Members</span>
+<span class="text-xs font-bold text-[#f8fafc]">4 Verified</span>
+</div>
+<div class="bg-[#0f172a] border border-[#1f293d] p-2 rounded-lg">
+<span class="text-[11px] text-[#94a3b8] block">Portability</span>
+<span class="text-xs font-bold text-emerald-400">Interstate OK</span>
+</div>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2.5">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#1e293b] border border-[#334155] flex items-center justify-center text-sky-400 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#f8fafc]">Bank Passbook (SBI)</h3>
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"></span>
+</div>
+<p class="text-xs text-[#94a3b8] font-medium">State Bank of India • Gorakhpur Main</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          DBT / NPCI Mapped
+        </span>
+</div>
+<div class="p-2.5 bg-[#0f172a] border border-[#1f293d] rounded-lg flex items-center justify-between text-[#f8fafc]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-400">check_circle</span>
+<span class="text-xs font-semibold">Direct Benefit Transfer Ready</span>
+</div>
+<span class="text-xs text-[#94a3b8]">A/C: •••• 4419</span>
+</div>
+</div>
+<div class="bg-[#111827] border border-rose-900/40 p-4 rounded-xl shadow-lg space-y-2.5 relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-24 h-24 bg-rose-500/5 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-rose-950/50 border border-rose-800/40 flex items-center justify-center text-rose-400 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">school</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="text-base font-bold text-[#f8fafc]">Child School Certificate</h3>
+<span class="w-2 h-2 rounded-full bg-rose-400 shadow-[0_0_6px_#f87171]"></span>
+</div>
+<p class="text-xs text-rose-400 font-medium">स्कूल प्रमाणपत्र • Missing Document</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-rose-950/50 border border-rose-700/40 text-rose-300 text-xs font-semibold">
+          1 Scheme Waiting
+        </span>
+</div>
+<div class="p-2.5 bg-rose-950/25 border border-rose-900/30 rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-[#f8fafc]">Construction Worker Child Grant</span>
+<span class="text-[11px] text-[#94a3b8]">Delhi BOCW Education Support • ₹12,000 / year</span>
+</div>
+<span class="text-xs font-bold text-rose-400 shrink-0 ml-2">Action Needed</span>
+</div>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#334155] text-[#cbd5e1] p-4 rounded-xl shadow-xl space-y-3 relative overflow-hidden" id="scanner-section">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-amber-400 text-[24px]">document_scanner</span>
+<div>
+<h3 class="text-base font-bold text-[#f8fafc]">⚡ AI Document Scanner</h3>
+<p class="text-xs text-[#94a3b8]">नया दस्तावेज़ स्कैन या अपलोड करें</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-400 text-[#0a0e17] text-xs font-bold shadow-[0_0_8px_rgba(52,211,153,0.4)]">
+        OCR 3.2
+      </span>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-1">
+<button class="min-h-[48px] p-2.5 rounded-xl bg-[#1e293b] hover:bg-[#334155] border border-[#334155] flex flex-col items-center justify-center gap-1 text-center transition-colors shadow-sm" id="btn-camera">
+<span class="material-symbols-outlined text-[20px] text-amber-300">photo_camera</span>
+<span class="text-xs font-semibold text-[#f8fafc]">Take Photo</span>
+</button>
+<button class="min-h-[48px] p-2.5 rounded-xl bg-[#1e293b] hover:bg-[#334155] border border-[#334155] flex flex-col items-center justify-center gap-1 text-center transition-colors shadow-sm" id="btn-upload">
+<span class="material-symbols-outlined text-[20px] text-sky-400">upload_file</span>
+<span class="text-xs font-semibold text-[#f8fafc]">Upload File</span>
+</button>
+<button class="min-h-[48px] p-2.5 rounded-xl bg-[#1e293b] hover:bg-[#334155] border border-[#334155] flex flex-col items-center justify-center gap-1 text-center transition-colors shadow-sm" id="btn-digilocker">
+<span class="material-symbols-outlined text-[20px] text-emerald-400">cloud_download</span>
+<span class="text-xs font-semibold text-[#f8fafc]">DigiLocker</span>
+</button>
+</div>
+<div class="bg-[#0f172a] border border-[#1f293d] text-[#cbd5e1] p-3 rounded-xl space-y-2 mt-2" id="extraction-card">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-sky-400 animate-pulse shadow-[0_0_8px_#38bdf8]"></span>
+          Live Extraction in Progress
+        </span>
+<span class="text-xs text-[#94a3b8] font-medium">Auto-Mapped</span>
+</div>
+<div class="flex items-center gap-3 p-2.5 bg-[#111827] border border-[#1f293d] rounded-lg">
+<div class="w-12 h-14 bg-[#1e293b] border border-[#334155] rounded flex items-center justify-center text-sky-400 overflow-hidden shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[28px]">feed</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-bold text-[#f8fafc] truncate">MCD Primary School Bonafide Certificate</span>
+<span class="text-[11px] text-[#94a3b8]">School ID: DL-MCD-0921 • Delhi Govt Recognized</span>
+<span class="text-[11px] text-emerald-400 font-semibold">Analyzing with OCR &amp; Scheme Rule Engine...</span>
+</div>
+</div>
+<div class="space-y-1 p-2.5 bg-[#111827] border border-[#1f293d] rounded-lg">
+<span class="text-xs font-bold text-[#94a3b8] block">Extracted Evidence Facts:</span>
+<div class="grid grid-cols-2 gap-1.5 text-[#cbd5e1]">
+<div class="flex items-center gap-1 text-left">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check</span>
+<span class="text-[11px] truncate text-[#f8fafc]">Student: Amit Kumar (Son)</span>
+</div>
+<div class="flex items-center gap-1 text-left">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check</span>
+<span class="text-[11px] truncate text-[#f8fafc]">Class: 4th Standard</span>
+</div>
+<div class="flex items-center gap-1 text-left">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check</span>
+<span class="text-[11px] truncate text-[#f8fafc]">Roll: #28 • Session 24-25</span>
+</div>
+<div class="flex items-center gap-1 text-left">
+<span class="material-symbols-outlined text-[14px] text-emerald-400">check</span>
+<span class="text-[11px] truncate text-[#f8fafc]">Stamp: Principal Verified</span>
+</div>
+</div>
+</div>
+<div class="p-2.5 bg-[#1e293b]/70 border border-[#334155] rounded-lg flex items-start gap-2">
+<span class="material-symbols-outlined text-amber-400 text-[20px] shrink-0 mt-0.5">auto_awesome</span>
+<p class="text-xs text-[#cbd5e1] leading-tight">
+          🎉 <strong class="text-[#f8fafc]">Requirement Matched!</strong> This single document satisfies the missing condition for <em>Delhi Education Assistance</em>. Zero additional data entry needed.
+        </p>
+</div>
+<button class="w-full min-h-[48px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(56,189,248,0.35)] active:scale-98 transition-all" id="cta-link-apply">
+<span class="material-symbols-outlined text-[18px] text-slate-950">verified</span>
+<span class="text-slate-950 font-bold">Link to Education Grant Application (₹12,000)</span>
+</button>
+</div>
+</div>
+<div class="bg-[#111827] border border-[#1f293d] p-4 rounded-xl shadow-lg space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-emerald-400">lock</span>
+<span class="text-sm font-bold text-[#f8fafc]">Data Sovereignty &amp; Security</span>
+</div>
+<span class="text-xs text-[#94a3b8] font-medium">MeitY Certified</span>
+</div>
+<p class="text-xs text-[#94a3b8] leading-relaxed">
+      Documents are signed cryptographically and retained under user-sovereign consent. Never sold, never shared without explicit OTP/Biometric grant.
+    </p>
+<div class="flex items-center gap-4 pt-1">
+<span class="text-xs text-sky-400 font-semibold flex items-center gap-1 cursor-pointer hover:underline">
+<span class="material-symbols-outlined text-[14px]">history</span>
+        Audit Log (19 events)
+      </span>
+<span class="text-xs text-rose-400 font-semibold flex items-center gap-1 cursor-pointer hover:underline">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+        Revoke Consent
+      </span>
+</div>
+</div>
+</div>
+<script>
+  (function initDocumentGraphInteractive() {
+    const ctaApply = document.getElementById('cta-link-apply');
+    const extractionCard = document.getElementById('extraction-card');
+    const btnCamera = document.getElementById('btn-camera');
+    const btnUpload = document.getElementById('btn-upload');
+    const btnDigilocker = document.getElementById('btn-digilocker');
+
+    function triggerScanFeedback(actionName) {
+      if (!extractionCard) return;
+      extractionCard.style.opacity = '0.5';
+      setTimeout(() => {
+        extractionCard.style.opacity = '1';
+      }, 350);
+    }
+
+    if (btnCamera) {
+      btnCamera.addEventListener('click', () => triggerScanFeedback('Camera'));
+    }
+    if (btnUpload) {
+      btnUpload.addEventListener('click', () => triggerScanFeedback('Upload'));
+    }
+    if (btnDigilocker) {
+      btnDigilocker.addEventListener('click', () => triggerScanFeedback('DigiLocker'));
+    }
+
+    if (ctaApply) {
+      ctaApply.addEventListener('click', function() {
+        this.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin text-slate-950">sync</span><span class="text-slate-950 font-bold">Linking & Auto-Filling Delhi BOCW Form...</span>';
+        this.classList.remove('from-sky-500', 'to-blue-600');
+        this.classList.add('bg-emerald-400');
+        
+        setTimeout(() => {
+          this.innerHTML = '<span class="material-symbols-outlined text-[18px] text-slate-950">done_all</span><span class="text-slate-950 font-bold">Successfully Linked! Grant Submitting...</span>';
+        }, 1400);
+      });
+    }
+  })();
+</script></main><div class="fixed bottom-20 inset-x-0 z-40 px-4 pointer-events-none flex justify-center pb-2"><button aria-label="बोलकर पूछें / Ask Welfare Agent" class="pointer-events-auto min-h-[46px] px-4 py-2 bg-[#111827] border border-[#334155] text-[#f8fafc] rounded-full shadow-[0_12px_32px_rgba(0,0,0,0.7)] flex items-center gap-2 active:scale-95 transition-transform duration-150"><span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_#34d399]"></span></span><span class="material-symbols-outlined text-[18px] text-emerald-400">mic</span><span class="text-xs font-bold tracking-normal text-[#f8fafc]">बोलकर पूछें <span class="text-[#94a3b8] font-normal">/ Ask AI</span></span></button></div><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#0a0e17]/95 backdrop-blur-xl border-t border-[#1f293d] shadow-[0_-4px_20px_rgba(0,0,0,0.5)]"><div class="flex justify-around items-center h-16 px-1"><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] hover:text-[#f8fafc] transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="text-[11px] leading-none mt-1">होम</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] hover:text-[#f8fafc] transition-colors" data-path="survival-map-and-entitlements" href="#"><span class="material-symbols-outlined text-[22px]">shield_with_heart</span><span class="text-[11px] leading-none mt-1">योजनाएं</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] transition-colors text-sky-400 font-bold" data-path="evidence-graph-and-documents" href="#"><span class="material-symbols-outlined text-[22px]">folder_shared</span><span class="text-[11px] leading-none mt-1">दस्तावेज़</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] hover:text-[#f8fafc] transition-colors" data-path="autopilot-center" href="#"><span class="material-symbols-outlined text-[22px]">sync_saved_locally</span><span class="text-[11px] leading-none mt-1">आवेदन</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] hover:text-[#f8fafc] transition-colors" data-path="trust-center-and-profile" href="#"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="text-[11px] leading-none mt-1">प्रोफ़ाइल</span></a></div></nav>
+</body></html>

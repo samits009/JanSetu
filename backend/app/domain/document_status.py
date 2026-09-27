@@ -1,0 +1,11 @@
+from enum import StrEnum
+
+
+class DocumentStatus(StrEnum):
+    UPLOADED = "UPLOADED"
+    PROCESSING = "PROCESSING"
+    EXTRACTED = "EXTRACTED"
+    NEEDS_REVIEW = "NEEDS_REVIEW"
+    VERIFIED = "VERIFIED"
+    REJECTED = "REJECTED"
+    FAILED = "FAILED"

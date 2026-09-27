@@ -1,0 +1,37 @@
+{
+  "official_name": "One Nation One Ration Card",
+  "category": "NUTRITION",
+  "description": "Portable ration entitlement across India.",
+  "rules": [
+    {
+      "rule_type": "INCOME",
+      "operator": "<=",
+      "value": 250000
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Ration Card",
+      "requirement_type": "INCOME",
+      "description": "State issued Ration Card"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "IN_KIND",
+      "description": "Subsidized food grains available at any fair price shop nationwide"
+    }
+  ],
+  "jurisdictions": [
+    {
+      "level": "CENTRAL",
+      "country": "India"
+    }
+  ],
+  "portability": "PORTABLE",
+  "renewal_required": false,
+  "source_type": "FIXTURE",
+  "source_reference": "ONORC-2026",
+  "authority": "Ministry of Consumer Affairs",
+  "retrieved_at": "2026-09-11T12:00:00Z"
+}

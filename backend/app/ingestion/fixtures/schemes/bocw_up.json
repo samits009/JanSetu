@@ -1,0 +1,45 @@
+{
+  "official_name": "UP BOCW",
+  "category": "EMPLOYMENT",
+  "description": "Financial assistance for construction workers registered in UP.",
+  "rules": [
+    {
+      "rule_type": "OCCUPATION",
+      "operator": "==",
+      "value": "construction_worker"
+    },
+    {
+      "rule_type": "STATE",
+      "operator": "==",
+      "value": "Uttar Pradesh"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Worker Certificate",
+      "requirement_type": "OCCUPATION",
+      "description": "Valid BOCW registration card"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "FINANCIAL",
+      "amount": 5000,
+      "description": "Quarterly financial assistance"
+    }
+  ],
+  "jurisdictions": [
+    {
+      "level": "STATE",
+      "country": "India",
+      "state": "Uttar Pradesh"
+    }
+  ],
+  "portability": "NON_PORTABLE",
+  "renewal_required": true,
+  "renewal_period_days": 365,
+  "source_type": "FIXTURE",
+  "source_reference": "UP-BOCW-2026",
+  "authority": "UP Labour Department",
+  "retrieved_at": "2026-09-11T12:00:00Z"
+}

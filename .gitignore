@@ -1,0 +1,33 @@
+# Python
+backend/venv/
+backend/.pytest_cache/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.db
+backend/jansetu.db
+backend/storage/documents/*
+!backend/storage/documents/.gitkeep
+
+# Node & Frontend
+frontend/node_modules/
+frontend/dist/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Secrets
+.env
+backend/.env
+frontend/.env
+frontend/.env.local
+*.pem
+*.key
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

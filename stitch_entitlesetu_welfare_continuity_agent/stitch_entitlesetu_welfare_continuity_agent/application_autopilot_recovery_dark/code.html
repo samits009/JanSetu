@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><title>JanSetu</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;background-color:#0a0e17;font-family:'Noto Sans',sans-serif;}.pb-safe{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 0.5rem);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-error":"#690005","surface-container-low":"#111827","primary-fixed-dim":"#adc6ff","secondary-container":"#00a572","inverse-surface":"#dfe2f1","surface-bright":"#353944","surface-container-high":"#1e293b","on-secondary-fixed":"#002113","surface-dim":"#0f131d","tertiary-fixed-dim":"#ffb95f","background":"#0a0e17","on-tertiary-fixed-variant":"#653e00","on-tertiary-container":"#34d399","on-secondary":"#003824","on-primary":"#002e6a","tertiary-container":"#064e3b","on-surface-variant":"#94a3b8","surface-variant":"#1e293b","on-secondary-container":"#a7f3d0","on-primary-fixed":"#001a42","tertiary":"#ffb95f","primary-fixed":"#d8e2ff","secondary":"#38bdf8","on-background":"#f8fafc","on-surface":"#f8fafc","surface-container-lowest":"#0a0e18","primary":"#38bdf8","error-container":"#450a0a","surface-container-highest":"#334155","on-tertiary":"#472a00","error":"#f87171","secondary-fixed-dim":"#4edea3","surface-tint":"#adc6ff","on-primary-container":"#bfdbfe","on-tertiary-fixed":"#2a1700","surface-container":"#111827","tertiary-fixed":"#ffddb8","on-error-container":"#fca5a5","outline-variant":"#334155","surface":"#0a0e17","inverse-on-surface":"#2c303b","secondary-fixed":"#6ffbbe","primary-container":"#1e3a8a","inverse-primary":"#005ac2","on-primary-fixed-variant":"#004395","outline":"#475569","on-secondary-fixed-variant":"#005236"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"container-padding-tablet":"1.5rem","container-padding-desktop":"2rem","space-2xl":"3rem","space-lg":"1.5rem","container-padding-mobile":"1rem","space-sm":"0.75rem","touch-min":"3rem","space-md":"1rem","space-2xs":"0.25rem","space-xl":"2rem","space-xs":"0.5rem"},"fontFamily":{"label-md":["Noto Sans"],"label-lg":["Noto Sans"],"body-md":["Noto Sans"],"display-lg":["Noto Sans"],"body-lg":["Noto Sans"],"headline-lg":["Noto Sans"],"label-sm":["Noto Sans"],"headline-md":["Noto Sans"],"display-lg-mobile":["Noto Sans"],"title-lg":["Noto Sans"],"headline-lg-mobile":["Noto Sans"]},"fontSize":{"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.03em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0.01em","fontWeight":"400"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0.01em","fontWeight":"400"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"display-lg-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"title-lg":["18px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.005em","fontWeight":"600"}]}}}}</script></head><body class="bg-[#0a0e17] text-[#f8fafc] font-body-md text-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-[#0a0e17]/90 backdrop-blur-xl border-b border-[#1f293d] shadow-[0_1px_12px_rgba(0,0,0,0.4)]"><div class="h-20 px-container-padding-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-[#1e293b] text-[#38bdf8] flex items-center justify-center border border-[#334155] shadow-[0_2px_8px_rgba(0,0,0,0.3)]"><span class="material-symbols-outlined text-[24px]">account_balance</span></div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-title-lg text-title-lg font-bold text-[#f8fafc] tracking-tight">JanSetu</span><span class="px-1.5 py-0.5 rounded-full bg-[#0284c7]/20 text-[#38bdf8] font-label-sm text-label-sm font-semibold border border-[#0284c7]/30">DPI</span></div><span class="font-label-sm text-label-sm text-[#94a3b8] line-clamp-1">भारत सरकार • Public Infrastructure</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="भाषा बदलें / Change Language" class="min-h-[44px] px-2.5 py-1 rounded-full bg-[#1e293b] border border-[#334155] flex items-center gap-1 text-[#f8fafc] font-label-md text-label-md"><span class="material-symbols-outlined text-[18px] text-[#38bdf8]">translate</span><span class="">हिंदी</span><span class="text-[#94a3b8] text-[11px]">/ EN</span></button><div class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#f8fafc]"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-container-padding-mobile pt-20 pb-36 bg-[#0a0e17]"><div class="flex flex-col w-full gap-space-md">
+<!-- Status Banner & Title Card -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md shadow-lg flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs flex-wrap">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-[#1e293b] text-[#cbd5e1] border border-[#334155] font-semibold tracking-wide">
+            ऑटोपायलट ट्रैकर
+          </span>
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">
+            #DL-BOCW-2025-8841
+          </span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-[#f8fafc] mt-1 tracking-tight">
+          Application Autopilot
+        </h1>
+<p class="font-body-md text-body-md text-[#94a3b8] line-clamp-2 mt-0.5">
+          BOCW Delhi Worker Education &amp; Welfare Grant • दिल्ली निर्माण कर्मकार छात्रवृत्ति योजना
+        </p>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center flex-shrink-0 text-[#38bdf8]">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">auto_mode</span>
+</div>
+</div>
+<!-- Active Status Pill -->
+<div class="flex items-center justify-between bg-[#1e293b]/70 border border-[#334155]/60 px-space-sm py-space-xs rounded-lg">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="relative flex h-3 w-3 flex-shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f87171] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-[#f87171]"></span>
+</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-[#f87171] font-bold truncate">
+            पुनः प्रमाण आवश्यक • Action Required
+          </span>
+<span class="font-label-sm text-label-sm text-[#94a3b8] truncate">
+            Additional Employment Evidence Needed by Portal
+          </span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-[#cbd5e1] bg-[#0a0e18] border border-[#334155] px-2 py-1 rounded-md font-semibold flex-shrink-0">
+        State: DL-NCR
+      </span>
+</div>
+</div>
+<!-- Autonomous Event Timeline -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md shadow-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#38bdf8] text-[20px]">timeline</span>
+<h2 class="font-title-lg text-title-lg font-bold text-[#f8fafc]">
+          एजेंट टाइमलाइन • Live Agency Stream
+        </h2>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-[#065f46]/40 text-[#34d399] border border-[#059669]/30 font-semibold">
+        Autonomous Sync
+      </span>
+</div>
+<!-- Timeline List -->
+<div class="relative pl-6 flex flex-col gap-space-sm mt-1">
+<!-- Vertical Connecting Line -->
+<div class="absolute left-2.5 top-2 bottom-3 w-0.5 bg-[#334155]"></div>
+<!-- Step 1 -->
+<div class="relative flex items-start gap-space-xs">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-[#10b981] text-[#0a0e18] flex items-center justify-center text-[12px] font-bold">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">09:42 IST</span>
+<span class="w-1 h-1 rounded-full bg-[#475569]"></span>
+<span class="font-label-sm text-label-sm text-[#34d399] font-semibold">Verified</span>
+</div>
+<p class="font-body-md text-body-md text-[#f8fafc] font-medium">
+            Eligibility verified from citizen profile &amp; socio-economic registry
+          </p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex items-start gap-space-xs">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-[#10b981] text-[#0a0e18] flex items-center justify-center text-[12px] font-bold">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">09:44 IST</span>
+<span class="w-1 h-1 rounded-full bg-[#475569]"></span>
+<span class="font-label-sm text-label-sm text-[#38bdf8] font-semibold">DigiLocker DPI</span>
+</div>
+<p class="font-body-md text-body-md text-[#f8fafc] font-medium">
+            Aadhaar KYC and worker passbook matched &amp; hash-verified
+          </p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex items-start gap-space-xs">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-[#10b981] text-[#0a0e18] flex items-center justify-center text-[12px] font-bold">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">09:45 IST</span>
+<span class="w-1 h-1 rounded-full bg-[#475569]"></span>
+<span class="font-label-sm text-label-sm text-[#cbd5e1] font-semibold">Self-Executing</span>
+</div>
+<p class="font-body-md text-body-md text-[#f8fafc] font-medium">
+            BOCW Form 27 auto-synthesized &amp; cryptographic e-Sign applied
+          </p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex items-start gap-space-xs">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-[#10b981] text-[#0a0e18] flex items-center justify-center text-[12px] font-bold">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-2xs">
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">09:46 IST</span>
+<span class="w-1 h-1 rounded-full bg-[#475569]"></span>
+<span class="font-label-sm text-label-sm text-[#cbd5e1] font-semibold">Direct API Handshake</span>
+</div>
+<p class="font-body-md text-body-md text-[#f8fafc] font-medium">
+            Application dispatch to Delhi Labour e-District Portal gateway
+          </p>
+</div>
+</div>
+<!-- Step 5 (Alert / Friction) -->
+<div class="relative flex items-start gap-space-xs">
+<div class="absolute -left-6 top-1 w-5 h-5 rounded-full bg-[#ef4444] text-white flex items-center justify-center text-[12px] font-bold">
+<span class="material-symbols-outlined text-[13px]">priority_high</span>
+</div>
+<div class="flex flex-col min-w-0 bg-[#450a0a]/60 border border-[#dc2626]/40 p-space-xs rounded-lg w-full">
+<div class="flex items-center gap-space-2xs flex-wrap">
+<span class="font-label-sm text-label-sm text-[#f87171] font-bold">09:49 IST</span>
+<span class="w-1 h-1 rounded-full bg-[#f87171]"></span>
+<span class="font-label-sm text-label-sm text-[#fca5a5] font-semibold">Labour Department Response</span>
+</div>
+<p class="font-body-md text-body-md text-[#fef2f2] font-semibold mt-0.5">
+            “Application requires additional employment proof: minimum 90 days continuous construction work in Delhi NCR within last 12 months.”
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Explainable Diagnosis Box -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md flex flex-col gap-space-xs shadow-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-lg bg-[#0c4a6e] text-[#38bdf8] flex items-center justify-center border border-[#0284c7]/40">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-lg text-label-lg font-bold text-[#f8fafc]">
+          एजेंट ने कारण ढूंढा • Agent Diagnosis
+        </h3>
+<span class="font-label-sm text-label-sm text-[#94a3b8]">Explainable AI Audit Log</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-[#cbd5e1] leading-relaxed mt-1">
+      “The uploaded contractor slip confirmed only <strong class="text-[#f87171] font-semibold">65 verified workdays</strong> under Contractor Sharma (Anand Vihar site). The Delhi BOCW portal mandates a minimum of <strong class="font-semibold text-[#f8fafc]">90 days</strong>. Deficiency: <strong class="text-[#f87171] font-semibold">25 days missing</strong>.”
+    </p>
+<!-- Visual Gap Progress -->
+<div class="mt-space-xs flex flex-col gap-1">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-[#94a3b8]">Original Upload: 65 Days</span>
+<span class="text-[#f87171] font-bold">Goal: 90 Days (Deficit: 25d)</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-[#1e293b] border border-[#334155]/60 overflow-hidden flex">
+<div class="bg-[#0284c7] h-full rounded-full" style="width: 72%;"></div>
+<div class="bg-[#ef4444]/40 h-full" style="width: 28%;"></div>
+</div>
+</div>
+</div>
+<!-- Alternate Evidence Discovered Autonomously -->
+<div class="w-full flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#34d399] text-[20px]" style="font-variation-settings: 'FILL' 1;">travel_explore</span>
+<h2 class="font-title-lg text-title-lg font-bold text-[#f8fafc]">
+          वैकल्पिक साक्ष्य मिला • Discovered Evidence
+        </h2>
+</div>
+<span class="font-label-sm text-label-sm text-[#38bdf8] font-bold">
+        Autopilot DPI Search
+      </span>
+</div>
+<!-- Evidence Card 1: e-Shram -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md shadow-lg flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-xs min-w-0">
+<div class="w-10 h-10 rounded-xl bg-[#064e3b]/50 border border-[#059669]/40 flex items-center justify-center flex-shrink-0 text-[#34d399]">
+<span class="material-symbols-outlined text-[24px]">badge</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-label-lg text-label-lg font-bold text-[#f8fafc] truncate">
+                e-Shram Universal Account Record
+              </span>
+<span class="font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-[#065f46]/40 text-[#34d399] border border-[#059669]/30 font-semibold">
+                ✓ 99.4% Match
+              </span>
+</div>
+<p class="font-body-md text-body-md text-[#94a3b8] mt-0.5">
+              Noida Sector 62 Infrastructure Metro Site • 60 Logged Shift Days
+            </p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-2xs font-label-sm text-label-sm text-[#94a3b8] bg-[#1e293b]/70 border border-[#334155]/60 px-space-sm py-1.5 rounded-lg">
+<span class="flex items-center gap-1 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[16px] text-[#34d399]">verified</span>
+          Verified via Ministry of Labour API
+        </span>
+<span class="font-bold text-[#34d399]">+60 Days</span>
+</div>
+</div>
+<!-- Evidence Card 2: UP BOCW Master Passbook -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md shadow-lg flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex items-start gap-space-xs min-w-0">
+<div class="w-10 h-10 rounded-xl bg-[#0c4a6e]/50 border border-[#0284c7]/40 flex items-center justify-center flex-shrink-0 text-[#38bdf8]">
+<span class="material-symbols-outlined text-[24px]">menu_book</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="font-label-lg text-label-lg font-bold text-[#f8fafc] truncate">
+                UP BOCW Master Passbook Record
+              </span>
+<span class="font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-[#0284c7]/20 text-[#38bdf8] border border-[#0284c7]/30 font-semibold">
+                ✓ Interstate Portability
+              </span>
+</div>
+<p class="font-body-md text-body-md text-[#94a3b8] mt-0.5">
+              Ghaziabad-Delhi Transit Corridor • 210 Days Construction History
+            </p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-2xs font-label-sm text-label-sm text-[#94a3b8] bg-[#1e293b]/70 border border-[#334155]/60 px-space-sm py-1.5 rounded-lg">
+<span class="flex items-center gap-1 font-medium text-[#cbd5e1]">
+<span class="material-symbols-outlined text-[16px] text-[#34d399]">verified</span>
+          Official State Govt Digital Stamp
+        </span>
+<span class="font-bold text-[#38bdf8]">+210 Days Total</span>
+</div>
+</div>
+<!-- Combined Metric Banner -->
+<div class="w-full bg-gradient-to-r from-[#022c22] to-[#064e3b] border border-[#059669]/50 text-[#f8fafc] rounded-xl p-space-md flex items-center justify-between shadow-lg">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-full bg-[#10b981]/20 flex items-center justify-center text-[#34d399]">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg font-bold tracking-tight text-[#f8fafc]">
+            125 Verified NCR Days
+          </span>
+<span class="font-label-sm text-label-sm text-[#a7f3d0]">
+            Surpasses 90-day threshold (+35 days surplus buffer)
+          </span>
+</div>
+</div>
+<span class="font-label-lg text-label-lg font-bold bg-[#10b981] text-[#064e3b] px-space-sm py-1 rounded-full flex-shrink-0 shadow-sm">
+        100% Valid
+      </span>
+</div>
+</div>
+<!-- Closed-Loop Resubmission Approval Panel -->
+<div class="w-full bg-[#111827] border border-[#1f293d] rounded-xl p-space-md shadow-lg flex flex-col gap-space-md relative overflow-hidden" id="approval-panel">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#38bdf8] text-[22px]">published_with_changes</span>
+<h3 class="font-title-lg text-title-lg font-bold text-[#f8fafc]">
+          अनुमोदन एवं समाधान • Rejection Recovery
+        </h3>
+</div>
+<p class="font-body-md text-body-md text-[#cbd5e1]">
+        The agent has pre-compiled an amended <strong>Form 27-R</strong> merging e-Shram shift records and UP Passbook reciprocity clauses.
+      </p>
+</div>
+<!-- Consent Notice -->
+<div class="bg-[#1e293b]/70 border border-[#334155]/60 rounded-lg p-space-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-[#38bdf8] text-[20px] flex-shrink-0 mt-0.5">shield_person</span>
+<p class="font-label-sm text-label-sm text-[#cbd5e1] leading-relaxed">
+<strong class="text-[#f8fafc] font-semibold">Citizen Sovereignty Guarantee:</strong> Your explicit biometric or one-tap consent is required before the agent transmits the composite dossier back to the Delhi Labour Commissionerate.
+      </p>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-space-xs pt-1" id="action-buttons-group">
+<button class="w-full min-h-[48px] bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl px-space-md py-space-sm flex items-center justify-center gap-space-xs font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(2,132,199,0.35)] active:scale-[0.98] transition-all" id="approve-resubmit-btn">
+<span class="material-symbols-outlined text-[20px] text-[#bae6fd]">rocket_launch</span>
+<span class="">Approve Resubmission (अनुमोदन और पुनः जमा करें)</span>
+</button>
+<button class="w-full min-h-[48px] bg-[#1e293b] hover:bg-[#334155] text-[#f8fafc] border border-[#334155] rounded-xl px-space-md py-space-sm flex items-center justify-center gap-space-xs font-label-lg text-label-lg font-semibold active:scale-[0.98] transition-transform" id="inspect-dossier-btn">
+<span class="material-symbols-outlined text-[20px] text-[#94a3b8]">policy</span>
+<span class="">Inspect Evidence Dossier (दस्तावेज़ देखें)</span>
+</button>
+</div>
+<!-- Simulated Autopilot Progress & Success Screen (Initially Hidden) -->
+<div class="hidden flex-col gap-space-sm bg-[#1e293b]/70 border border-[#334155] p-space-md rounded-xl" id="execution-sim-box">
+<div class="flex flex-col gap-space-sm" id="sim-running-state">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-[#38bdf8] flex items-center gap-2">
+<span class="animate-spin material-symbols-outlined text-[18px]">progress_activity</span>
+            Autonomous Recovery in Progress...
+          </span>
+<span class="font-label-sm text-label-sm text-[#94a3b8] font-medium">Step 2 of 3</span>
+</div>
+<div class="w-full h-2 rounded-full bg-[#334155] overflow-hidden">
+<div class="bg-[#38bdf8] h-full transition-all duration-700 w-1/3" id="sim-progress-bar"></div>
+</div>
+<p class="font-body-md text-body-md text-[#cbd5e1]" id="sim-status-label">
+          Injecting e-Shram token #ES-78192 into Delhi e-District API...
+        </p>
+</div>
+<div class="hidden flex-col gap-space-xs text-center py-2" id="sim-success-state">
+<div class="w-12 h-12 rounded-full bg-[#065f46]/40 border border-[#059669]/40 text-[#34d399] flex items-center justify-center mx-auto mb-1">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-[#f8fafc]">
+          पुनः जमा सफल • Dossier Resubmitted!
+        </span>
+<p class="font-body-md text-body-md text-[#94a3b8]">
+          Acknowledgement Receipt generated: <strong class="text-[#f8fafc]">#ACK-DL-BOCW-99028</strong>.<br/>
+          Official review scheduled within 24 hours. Your benefit continuity is protected.
+        </p>
+<div class="mt-space-sm flex justify-center">
+<span class="font-label-sm text-label-sm px-3 py-1 bg-[#1e293b] border border-[#334155] text-[#f8fafc] font-semibold rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#34d399]">done_all</span>
+            Agent closed recovery loop autonomously
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence Dossier Modal/Drawer (Initially Hidden) -->
+<div class="fixed inset-0 z-50 bg-[#0a0e17]/80 backdrop-blur-sm hidden flex-col justify-end p-0" id="dossier-modal">
+<div class="w-full bg-[#111827] border-t border-[#334155] rounded-t-2xl p-space-md max-h-[85vh] overflow-y-auto flex flex-col gap-space-md shadow-2xl">
+<div class="flex items-center justify-between pb-2 border-b border-[#1f293d]">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[#38bdf8] text-[24px]">folder_open</span>
+<h3 class="font-title-lg text-title-lg font-bold text-[#f8fafc]">
+            Evidence Dossier (दस्तावेज़ विवरण)
+          </h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-[#1e293b] border border-[#334155] flex items-center justify-center text-[#f8fafc]" id="close-dossier-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Dossier Items -->
+<div class="flex flex-col gap-space-sm">
+<div class="p-space-sm rounded-lg bg-[#1e293b] border border-[#334155]/60 flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md font-bold text-[#f8fafc]">
+<span class="">Original Contractor Slip</span>
+<span class="text-[#f87171]">65 Days (Incomplete)</span>
+</div>
+<span class="font-body-md text-body-md text-[#94a3b8]">Contractor Sharma • Anand Vihar Hub • Delhi</span>
+</div>
+<div class="p-space-sm rounded-lg bg-[#1e293b] border border-[#334155]/60 flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md font-bold text-[#f8fafc]">
+<span class="">e-Shram Shift Token (NDUW)</span>
+<span class="text-[#34d399]">+60 Days (Valid)</span>
+</div>
+<span class="font-body-md text-body-md text-[#94a3b8]">Metro Rail Extension • Sector 62 • MoLE Verified</span>
+</div>
+<div class="p-space-sm rounded-lg bg-[#1e293b] border border-[#334155]/60 flex flex-col gap-1">
+<div class="flex justify-between font-label-md text-label-md font-bold text-[#f8fafc]">
+<span class="">Interstate Passbook Reciprocity</span>
+<span class="text-[#38bdf8]">Sec 18 Clause 4</span>
+</div>
+<span class="font-body-md text-body-md text-[#94a3b8]">NCR Construction Workers Mutual Portability Pact 2023</span>
+</div>
+</div>
+<button class="w-full min-h-[48px] bg-[#0284c7] text-white rounded-xl font-label-lg text-label-lg font-bold shadow-md" id="modal-confirm-btn">
+        Done Reviewing (वापस जाएं)
+      </button>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const approveBtn = document.getElementById('approve-resubmit-btn');
+    const inspectBtn = document.getElementById('inspect-dossier-btn');
+    const actionGroup = document.getElementById('action-buttons-group');
+    const simBox = document.getElementById('execution-sim-box');
+    const simRunning = document.getElementById('sim-running-state');
+    const simSuccess = document.getElementById('sim-success-state');
+    const progressBar = document.getElementById('sim-progress-bar');
+    const statusLabel = document.getElementById('sim-status-label');
+
+    const modal = document.getElementById('dossier-modal');
+    const closeModalBtn = document.getElementById('close-dossier-btn');
+    const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+
+    // Drawer triggers
+    inspectBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    const hideModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    closeModalBtn.addEventListener('click', hideModal);
+    modalConfirmBtn.addEventListener('click', hideModal);
+
+    // Autonomous execution sequence simulation
+    approveBtn.addEventListener('click', () => {
+      actionGroup.classList.add('hidden');
+      simBox.classList.remove('hidden');
+      simBox.classList.add('flex');
+
+      setTimeout(() => {
+        progressBar.style.width = '70%';
+        statusLabel.textContent = 'Generating mutual portability affidavit with DigiLocker e-Sign...';
+      }, 900);
+
+      setTimeout(() => {
+        progressBar.style.width = '100%';
+        statusLabel.textContent = 'Transmitting patched payload to Delhi Labour Portal API gateway...';
+      }, 1800);
+
+      setTimeout(() => {
+        simRunning.classList.add('hidden');
+        simSuccess.classList.remove('hidden');
+        simSuccess.classList.add('flex');
+      }, 2700);
+    });
+  })();
+</script></main><div class="fixed bottom-20 inset-x-0 z-40 px-container-padding-mobile pointer-events-none flex justify-center pb-2"><button aria-label="बोलकर पूछें / Ask Welfare Agent" class="pointer-events-auto min-h-[48px] px-space-md py-space-xs bg-[#111827] text-[#f8fafc] border border-[#334155] rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.5)] flex items-center gap-space-xs active:scale-95 transition-transform duration-150"><span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#38bdf8] opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-[#38bdf8]"></span></span><span class="material-symbols-outlined text-[20px] text-[#38bdf8]">mic</span><span class="font-label-lg text-label-lg font-bold tracking-normal text-[#f8fafc]">बोलकर पूछें <span class="font-body-md text-body-md text-[#94a3b8] font-normal">/ Ask AI</span></span></button></div><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#0a0e17]/95 border-t border-[#1f293d] backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.4)]" data-active-classes="text-[#38bdf8] font-bold"><div class="flex justify-around items-center h-16 px-1"><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] transition-colors hover:text-[#f8fafc]" data-path="command-center" href="#"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="font-label-sm text-label-sm leading-none mt-1">होम</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] transition-colors hover:text-[#f8fafc]" data-path="survival-map-and-entitlements" href="#"><span class="material-symbols-outlined text-[22px]">shield_with_heart</span><span class="font-label-sm text-label-sm leading-none mt-1">योजनाएं</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] transition-colors hover:text-[#f8fafc]" data-path="evidence-graph-and-documents" href="#"><span class="material-symbols-outlined text-[22px]">folder_shared</span><span class="font-label-sm text-label-sm leading-none mt-1">दस्तावेज़</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] transition-colors text-[#38bdf8] font-bold" data-path="autopilot-center" href="#"><span class="material-symbols-outlined text-[22px]">sync_saved_locally</span><span class="font-label-sm text-label-sm leading-none mt-1">आवेदन</span></a><a class="flex flex-col items-center justify-center min-h-[48px] min-w-[56px] text-[#94a3b8] transition-colors hover:text-[#f8fafc]" data-path="trust-center-and-profile" href="#"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-sm text-label-sm leading-none mt-1">प्रोफ़ाइल</span></a></div></nav>
+</body></html>

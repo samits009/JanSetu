@@ -1,0 +1,45 @@
+{
+  "official_name": "Delhi BOCW",
+  "category": "EMPLOYMENT",
+  "description": "Financial assistance for construction workers registered in Delhi.",
+  "rules": [
+    {
+      "rule_type": "OCCUPATION",
+      "operator": "==",
+      "value": "construction_worker"
+    },
+    {
+      "rule_type": "STATE",
+      "operator": "==",
+      "value": "Delhi"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Worker Certificate",
+      "requirement_type": "OCCUPATION",
+      "description": "Valid BOCW registration card"
+    }
+  ],
+  "benefits": [
+    {
+      "benefit_type": "FINANCIAL",
+      "amount": 3000,
+      "description": "Quarterly financial assistance"
+    }
+  ],
+  "jurisdictions": [
+    {
+      "level": "STATE",
+      "country": "India",
+      "state": "Delhi"
+    }
+  ],
+  "portability": "NON_PORTABLE",
+  "renewal_required": true,
+  "renewal_period_days": 365,
+  "source_type": "FIXTURE",
+  "source_reference": "DELHI-BOCW-2026",
+  "authority": "Delhi Labour Department",
+  "retrieved_at": "2026-09-11T12:00:00Z"
+}
